@@ -1,7 +1,9 @@
-package com.qx.io.svg;
+package com.qx.level0.io.svg;
 
 import java.io.IOException;
 import java.io.StringWriter;
+
+import com.qx.level0.maths.MathVector2D;
 
 
 /**
@@ -36,6 +38,15 @@ public class SVG_Line extends SVG_Shape{
 		this.y1 = y1;
 		this.x2 = x2;
 		this.y2 = y2;
+	}
+	
+	
+	public SVG_Line(String style, MathVector2D point0, MathVector2D point1) {
+		super(style);
+		this.x1 = point0.x;
+		this.y1 = point0.y;
+		this.x2 = point1.x;
+		this.y2 = point1.y;
 	}
 
 

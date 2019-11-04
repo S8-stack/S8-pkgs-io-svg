@@ -1,7 +1,11 @@
-package com.qx.io.svg;
+package com.qx.level0.io.svg;
+
+
 
 import java.io.IOException;
 import java.io.StringWriter;
+
+import com.qx.level0.maths.MathVector2D;
 
 
 
@@ -28,6 +32,14 @@ public class SVG_Arrow extends SVG_Shape{
 	}
 
 
+	public SVG_Arrow(String style, MathVector2D point0, MathVector2D point1) {
+		super(style);
+		this.x1 = point0.x;
+		this.y1 = point0.y;
+		this.x2 = point1.x;
+		this.y2 = point1.y;
+	}
+	
 	public SVG_Arrow(String style, double x1, double y1, double x2, double y2) {
 		super(style);
 		this.x1 = x1;

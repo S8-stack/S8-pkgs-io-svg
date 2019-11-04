@@ -1,9 +1,11 @@
-package com.qx.io.svg;
+package com.qx.level0.io.svg;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
-public class SVG_Text extends SVG_Shape{
+import com.qx.level0.maths.MathVector2D;
+
+public class SVG_Text extends SVG_Shape {
 
 	
 
@@ -23,7 +25,7 @@ public class SVG_Text extends SVG_Shape{
 	}
 
 
-	public SVG_Text(String styleClass, double x, double y,String text) {
+	public SVG_Text(String styleClass, double x, double y, String text) {
 		super(styleClass);
 		this.x = x;
 		this.y = y;
@@ -34,6 +36,13 @@ public class SVG_Text extends SVG_Shape{
 		super(styleClass, style);
 		this.x = x;
 		this.y = y;
+		this.text=text;
+	}
+	
+	public SVG_Text(String styleClass, MathVector2D point, String text) {
+		super(styleClass);
+		this.x = point.x;
+		this.y = point.y;
 		this.text=text;
 	}
 

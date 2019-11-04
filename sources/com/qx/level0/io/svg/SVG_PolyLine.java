@@ -1,7 +1,9 @@
-package com.qx.io.svg;
+package com.qx.level0.io.svg;
 
 import java.io.IOException;
 import java.io.StringWriter;
+
+import com.qx.level0.maths.MathVector2D;
 
 
 
@@ -29,14 +31,31 @@ public class SVG_PolyLine extends SVG_Shape{
 		this.coordinates = coordinates;
 	}
 	
+	public SVG_PolyLine(String styleClass, MathVector2D[] points){
+		super(styleClass);
+		this.coordinates = SVG_Polygon.toCoordinates(points);
+	}
+	
 	public SVG_PolyLine(String styleClass, String style, double[] coordinates){
 		super(styleClass, style);
 		this.coordinates = coordinates;
+	}
+	
+	public SVG_PolyLine(String styleClass, String style, MathVector2D[] points){
+		super(styleClass, style);
+		this.coordinates = SVG_Polygon.toCoordinates(points);
 	}
 
 	public SVG_PolyLine(String styleClass, double[] coordinates, double pointsRadius){
 		super(styleClass);
 		this.coordinates = coordinates;
+		isPointsVisible = true;
+		this.pointsRadius = pointsRadius;
+	}
+	
+	public SVG_PolyLine(String styleClass, MathVector2D[] points, double pointsRadius){
+		super(styleClass);
+		this.coordinates = SVG_Polygon.toCoordinates(points);
 		isPointsVisible = true;
 		this.pointsRadius = pointsRadius;
 	}

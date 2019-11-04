@@ -1,7 +1,9 @@
-package com.qx.io.svg;
+package com.qx.level0.io.svg;
 
 import java.io.IOException;
 import java.io.StringWriter;
+
+import com.qx.level0.maths.MathVector2D;
 
 
 
@@ -24,6 +26,14 @@ public class SVG_Circle extends SVG_Shape{
 	}
 
 
+	public SVG_Circle(String style, MathVector2D center, double r) {
+		super(style);
+		this.xCenter = center.x;
+		this.yCenter = center.y;
+		this.r = r;
+	}
+	
+	
 	public SVG_Circle(String style, double cx, double cy, double r) {
 		super(style);
 		this.xCenter = cx;
