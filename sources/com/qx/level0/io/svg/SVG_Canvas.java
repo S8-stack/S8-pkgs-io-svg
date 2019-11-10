@@ -4,17 +4,17 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.StringWriter;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.qx.level0.io.svg.shapes.SVG_Shape;
+
 
 
 
 public class SVG_Canvas {
-
 
 	public final static DecimalFormat FORMAT = new DecimalFormat("0.##");
 
@@ -25,12 +25,12 @@ public class SVG_Canvas {
 
 
 
-	private final static String headerLine1 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
-	private final static String headerLine2 = "<?xml-stylesheet href='mystyle.css' type='text/css'?>\n";
+	private final static String HEADER_LINE1 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
+	private final static String HEADER_LINE2 = "<?xml-stylesheet href='mystyle.css' type='text/css'?>\n";
 
-	private final static String xmlns = "http://www.w3.org/2000/svg";
+	private final static String XMLNS = "http://www.w3.org/2000/svg";
 
-	public final static String xmlRegex = "(<\\?.*\\?>)(<.*>)";
+	//public final static String xmlRegex = "(<\\?.*\\?>)(<.*>)";
 
 	/*
 	<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -45,15 +45,32 @@ public class SVG_Canvas {
 
 
 	protected final static int maxNumberOfShapes = (int) 1e6;
+	
+	private static final int MARGIN = 20;
+	private static final int DEFAULT_WIDTH = 800;
+	
 	protected int shapeCount;
 	protected ViewBox viewBox;
 
 	public SVG_Canvas(){
-		shapes = new ArrayList<SVG_Shape>();
-		shapeCount = 0;
-
+		super();
+		viewBox = new ViewBox();
+		initialize();
+	}
+	
+	public SVG_Canvas(double scaling, double padding){
+		super();
+		viewBox = new ViewBox(scaling, padding);
+		initialize();
 	}
 
+	
+	private void initialize() {
+		shapes = new ArrayList<SVG_Shape>();
+		shapeCount = 0;
+	}
+	
+	
 	public void add(SVG_Shape shape){
 		if(shapeCount>maxNumberOfShapes){
 			throw new RuntimeException("max number of shapes exceed");
@@ -62,9 +79,6 @@ public class SVG_Canvas {
 		shapeCount++;
 	}
 
-
-	private double size = 800;
-	private final static double margin = 60;
 
 
 	/**
@@ -78,8 +92,8 @@ public class SVG_Canvas {
 			OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(new File(pathname)));
 
 			// add header
-			writer.append(headerLine1);
-			writer.append(headerLine2);
+			writer.append(HEADER_LINE1);
+			writer.append(HEADER_LINE2);
 
 			writer.append(printToHTML());
 
@@ -90,13 +104,38 @@ public class SVG_Canvas {
 		}
 	}
 	
-	public void setViewBoxSize(double size){
-		this.size = size;
-	}
+	/**
+	 * Print shapes
+	 * @param writer
+	 * @throws IOException
+	 */
+	public void print(String pathname, double width) {
+		try {
+			// print shapes
+			OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(new File(pathname)));
 
+			// add header
+			writer.append(HEADER_LINE1);
+			writer.append(HEADER_LINE2);
+
+			writer.append(printToHTML(width));
+
+			writer.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public String printToHTML() throws IOException {
+		return printToHTML(DEFAULT_WIDTH);
+	}
+	
+
+	public String printToHTML(double width) throws IOException {
 		// compute the bounding box
-		viewBox = new ViewBox(size, margin);
+		
 		for(SVG_Shape shape : shapes){
 			shape.updateBoundingBox(viewBox);
 		}
@@ -104,16 +143,17 @@ public class SVG_Canvas {
 
 		// initialize transformations
 
-		viewBox.initializedViewTransform();
+		viewBox.compile();
 
 
-		StringWriter writer = new StringWriter();
-		writer.append("<svg version=\"1.1\" viewBox=\""+viewBox.toString()+"\" width=\""+size+"\" height=\""+size+"\" margin=\""+margin+"\" xmlns=\""+xmlns+"\">\n");
+		double height = viewBox.getFixRatioHeight(width);
+		StringBuilder builder = new StringBuilder();
+		builder.append("<svg version=\"1.1\" viewBox=\""+viewBox.toString()+"\" width=\""+width+"\" height=\""+height+"\" margin=\""+MARGIN+"\" xmlns=\""+XMLNS+"\">\n");
 		for(SVG_Shape shape : shapes){
-			shape.print(writer, viewBox);
+			shape.print(builder, viewBox);
 		}
-		writer.append("</svg>");
-		return writer.toString();
+		builder.append("</svg>");
+		return builder.toString();
 	}
 
 }

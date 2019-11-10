@@ -1,9 +1,10 @@
-package com.qx.level0.io.svg;
+package com.qx.level0.io.svg.shapes;
 
 
 import java.io.IOException;
-import java.io.StringWriter;
 
+import com.qx.level0.io.svg.ViewBox;
+import com.qx.level0.io.svg.ViewBoxUpdateType;
 import com.qx.level0.maths.MathVector2D;
 
 
@@ -22,6 +23,7 @@ public class SVG_Polygon extends SVG_Shape{
 	private double[] coordinates;
 
 
+	private int nPoints;
 
 
 	/**
@@ -33,25 +35,19 @@ public class SVG_Polygon extends SVG_Shape{
 
 
 
-	public SVG_Polygon(String styleClass, double[] coordinates){
-		super(styleClass);
+	public SVG_Polygon(String className, double[] coordinates){
+		super(className);
 		this.coordinates = coordinates;
+		this.nPoints = coordinates.length/2;
 	}
-	
-	public SVG_Polygon(String styleClass, MathVector2D[] points){
-		super(styleClass);
+
+	public SVG_Polygon(String className, MathVector2D[] points){
+		super(className);
 		this.coordinates = toCoordinates(points);
+		this.nPoints = points.length;
 	}
-	
-	public SVG_Polygon(String styleClass, String style, double[] coordinates){
-		super(styleClass, style);
-		this.coordinates = coordinates;
-	}
-	
-	public SVG_Polygon(String styleClass, String style, MathVector2D[] points){
-		super(styleClass, style);
-		this.coordinates = toCoordinates(points);
-	}
+
+
 
 	/*
 	public SVG_Polygon(String style, double[][] polygon){
@@ -64,7 +60,7 @@ public class SVG_Polygon extends SVG_Shape{
 			points[i] = new MathVector2d(polygon[i][0], polygon[i][1]);
 		}
 	}
-*/
+	 */
 
 	public SVG_Polygon(String style, double x0, double y0, double x1, double y1, double x2, double y2) {
 		super(style);
@@ -72,15 +68,18 @@ public class SVG_Polygon extends SVG_Shape{
 		coordinates[0] = x0; coordinates[1] = y0;
 		coordinates[2] = x1; coordinates[3] = y1;
 		coordinates[4] = x2; coordinates[5] = y2;
+		nPoints = 3;
 	}
-	
+
 	public SVG_Polygon(String style, MathVector2D p0, MathVector2D p1, MathVector2D p2) {
 		super(style);
 		coordinates = new double[6];
 		coordinates[0] = p0.x; coordinates[1] = p0.y;
 		coordinates[2] = p1.x; coordinates[3] = p1.y;
 		coordinates[4] = p2.x; coordinates[5] = p2.y;
+		nPoints = 3;
 	}
+
 
 
 
@@ -101,17 +100,17 @@ public class SVG_Polygon extends SVG_Shape{
 
 
 	@Override
-	public void print(StringWriter writer, ViewBox viewBox) throws IOException {
-		writer.append("<polygon");
-		printStyleBlock(writer);
-		writer.append(" points=\"");
+	public void print(StringBuilder builder, ViewBox viewBox) throws IOException {
+		builder.append("<polygon");
+		printAttributes(builder);
+		builder.append(" points=\"");
 		int n = coordinates.length/2;
 		int index=0;
 		for(int i=0; i<n; i++){
-			writer.append(viewBox.xTransform(coordinates[index++])+",");
-			writer.append(viewBox.yTransform(coordinates[index++])+" ");
+			builder.append(viewBox.xTransform(coordinates[index++])+",");
+			builder.append(viewBox.yTransform(coordinates[index++])+" ");
 		}
-		writer.append("\"/>\n");
+		builder.append("\"/>\n");
 	}
 
 
@@ -132,6 +131,23 @@ public class SVG_Polygon extends SVG_Shape{
 	}
 
 
+
+	@Override
+	public SVG_Polygon rewrite(SVG_Rewriter transform) {
+		double[] transformedCoordinates = new double[2*nPoints];
+		int n = coordinates.length;
+		MathVector2D transformedPoint;
+		for(int i=0; i<n; i++) {
+			transformedPoint = transform.transformPoint(new MathVector2D(coordinates[i], coordinates[i+1]));
+			transformedCoordinates[i] = transformedPoint.x;
+			transformedCoordinates[i+1] = transformedPoint.y;
+		}
+		return new SVG_Polygon(className, transformedCoordinates);
+	}
+
+
+
+
 	public static double[] toCoordinates(MathVector2D[] points) {
 		int n = points.length;
 		double[] coordinates = new double[2*n];
@@ -144,5 +160,6 @@ public class SVG_Polygon extends SVG_Shape{
 		}
 		return coordinates;
 	}
+
 
 }

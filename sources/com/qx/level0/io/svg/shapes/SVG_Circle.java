@@ -1,8 +1,9 @@
-package com.qx.level0.io.svg;
+package com.qx.level0.io.svg.shapes;
 
 import java.io.IOException;
-import java.io.StringWriter;
 
+import com.qx.level0.io.svg.ViewBox;
+import com.qx.level0.io.svg.ViewBoxUpdateType;
 import com.qx.level0.maths.MathVector2D;
 
 
@@ -26,16 +27,16 @@ public class SVG_Circle extends SVG_Shape{
 	}
 
 
-	public SVG_Circle(String style, MathVector2D center, double r) {
-		super(style);
+	public SVG_Circle(String className, MathVector2D center, double r) {
+		super(className);
 		this.xCenter = center.x;
 		this.yCenter = center.y;
 		this.r = r;
 	}
 	
 	
-	public SVG_Circle(String style, double cx, double cy, double r) {
-		super(style);
+	public SVG_Circle(String className, double cx, double cy, double r) {
+		super(className);
 		this.xCenter = cx;
 		this.yCenter = cy;
 		this.r = r;
@@ -67,14 +68,22 @@ public class SVG_Circle extends SVG_Shape{
 
 
 	@Override
-	public void print(StringWriter writer, ViewBox viewBox) throws IOException {
+	public void print(StringBuilder writer, ViewBox viewBox) throws IOException {
 		double adjusted_cx = viewBox.xTransform(xCenter);
 		double adjusted_cy = viewBox.yTransform(yCenter);
 		double adjusted_r = viewBox.scale(r);
 		// example :  <circle cx="100" cy="50" r="40" class="truc"/>
 		writer.append("<circle");
-		printStyleBlock(writer);
+		printAttributes(writer);
 		writer.append(" cx=\""+adjusted_cx+"\" cy=\""+adjusted_cy+"\" r=\""+adjusted_r+"\"/>\n");
+	}
+
+
+	@Override
+	public SVG_Shape rewrite(SVG_Rewriter transform) {
+		return new SVG_Circle(className, 
+				transform.transformPoint(new MathVector2D(xCenter, yCenter)), 
+				transform.transformScalar(r));
 	}
 
 

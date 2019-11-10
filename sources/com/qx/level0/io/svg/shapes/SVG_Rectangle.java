@@ -1,7 +1,9 @@
-package com.qx.level0.io.svg;
+package com.qx.level0.io.svg.shapes;
 
 import java.io.IOException;
-import java.io.StringWriter;
+
+import com.qx.level0.io.svg.ViewBox;
+import com.qx.level0.io.svg.ViewBoxUpdateType;
 
 
 public class SVG_Rectangle extends SVG_Shape{
@@ -30,16 +32,8 @@ public class SVG_Rectangle extends SVG_Shape{
 	}
 
 
-	public SVG_Rectangle(String styleClass, double x1, double y1, double x2, double y2) {
-		super(styleClass);
-		this.x1 = x1;
-		this.y1 = y1;
-		this.x2 = x2;
-		this.y2 = y2;
-	}
-	
-	public SVG_Rectangle(String styleClass, String style, double x1, double y1, double x2, double y2) {
-		super(styleClass, style);
+	public SVG_Rectangle(String className, double x1, double y1, double x2, double y2) {
+		super(className);
 		this.x1 = x1;
 		this.y1 = y1;
 		this.x2 = x2;
@@ -47,8 +41,8 @@ public class SVG_Rectangle extends SVG_Shape{
 	}
 
 
-	public SVG_Rectangle(String style, double[] p1, double[] p2) {
-		super(style);
+	public SVG_Rectangle(String className, double[] p1, double[] p2) {
+		super(className);
 		this.x1 = p1[0];
 		this.y1 = p1[1];
 		this.x2 = p2[0];
@@ -71,7 +65,7 @@ public class SVG_Rectangle extends SVG_Shape{
 
 
 	@Override
-	public void print(StringWriter writer, ViewBox viewBox) throws IOException {
+	public void print(StringBuilder builder, ViewBox viewBox) throws IOException {
 		double adjusted_x1 = viewBox.xTransform(x1);
 		double adjusted_y1 = viewBox.yTransform(y1);
 
@@ -83,9 +77,9 @@ public class SVG_Rectangle extends SVG_Shape{
 		double width = Math.abs(adjusted_x2-adjusted_x1);
 		double height = Math.abs(adjusted_y2-adjusted_y1);
 
-		writer.append("<rect");
-		printStyleBlock(writer);
-		writer.append(" x=\""+x+"\" y=\""+y+"\" width=\""+width+"\" height=\""+height+"\"/>\n");
+		builder.append("<rect");
+		printAttributes(builder);
+		builder.append(" x=\""+x+"\" y=\""+y+"\" width=\""+width+"\" height=\""+height+"\"/>\n");
 	}
 
 
@@ -98,6 +92,12 @@ public class SVG_Rectangle extends SVG_Shape{
 	public void setSecondPoint(double[] p2) {
 		this.x2 = p2[0];
 		this.y2 = p2[1];
+	}
+
+
+	@Override
+	public SVG_Shape rewrite(SVG_Rewriter transform) {
+		throw new RuntimeException("Not implemented yet");
 	}
 
 

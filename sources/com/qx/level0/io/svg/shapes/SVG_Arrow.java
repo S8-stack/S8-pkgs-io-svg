@@ -1,10 +1,11 @@
-package com.qx.level0.io.svg;
+package com.qx.level0.io.svg.shapes;
 
 
 
 import java.io.IOException;
-import java.io.StringWriter;
 
+import com.qx.level0.io.svg.ViewBox;
+import com.qx.level0.io.svg.ViewBoxUpdateType;
 import com.qx.level0.maths.MathVector2D;
 
 
@@ -14,7 +15,7 @@ import com.qx.level0.maths.MathVector2D;
 public class SVG_Arrow extends SVG_Shape{
 
 	public ViewBoxUpdateType updateType = ViewBoxUpdateType.Contained;
-	
+
 
 	protected double x1;
 
@@ -39,7 +40,7 @@ public class SVG_Arrow extends SVG_Shape{
 		this.x2 = point1.x;
 		this.y2 = point1.y;
 	}
-	
+
 	public SVG_Arrow(String style, double x1, double y1, double x2, double y2) {
 		super(style);
 		this.x1 = x1;
@@ -64,18 +65,22 @@ public class SVG_Arrow extends SVG_Shape{
 
 
 	@Override
-	public void print(StringWriter writer, ViewBox viewBox) throws IOException {
-	/*	
+	public void print(StringBuilder writer, ViewBox viewBox) throws IOException {
+		/*	
 		double adjusted_x1 = viewBox.transformXCoordinate(x1);
 		double adjusted_y1 = viewBox.transformYCoordinate(y1);
 
 		double adjusted_x2 = viewBox.transformXCoordinate(x2);
 		double adjusted_y2 = viewBox.transformYCoordinate(y2);
-		
-		*/
-		
-		
+
+		 */
+
 	}
 
 
+	
+	@Override
+	public SVG_Shape rewrite(SVG_Rewriter transform) {
+		throw new RuntimeException("Not implemented yet");
+	}
 }
