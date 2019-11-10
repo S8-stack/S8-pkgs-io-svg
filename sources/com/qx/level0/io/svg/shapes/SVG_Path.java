@@ -89,6 +89,36 @@ public class SVG_Path extends SVG_Shape {
 			return new Line(transformedVector.x, transformedVector.y);
 		}
 	}
+	
+	private class LineTo extends Element {
+
+		private double x, y;
+
+		public LineTo(double x, double y) {
+			super();
+			this.x = x;
+			this.y = y;
+		}
+
+		@Override
+		public void update(Position p, ViewBox box) {
+			p.x=x;
+			p.y=y;
+			box.updateBoundingBox(p.x, p.y);
+		}
+
+		@Override
+		public void print(StringBuilder builder, ViewBox box) {
+			builder.append("L"+box.xTransform(x)+","+box.yTransform(y));
+		}
+
+		
+		@Override
+		public Element transform(SVG_Rewriter transform) {
+			MathVector2D transformedPoint = transform.transformPoint(new MathVector2D(x, y));
+			return new LineTo(transformedPoint.x, transformedPoint.y);
+		}
+	}
 
 	private class Horizontal extends Element {
 
@@ -273,6 +303,11 @@ public class SVG_Path extends SVG_Shape {
 		return this;
 	}
 
+	public SVG_Path lineTo(double x, double y) {
+		elements.add(new LineTo(x, y));
+		return this;
+	}
+
 	public SVG_Path horizontal(double dx) {
 		elements.add(new Horizontal(dx));
 		return this;
@@ -288,8 +323,9 @@ public class SVG_Path extends SVG_Shape {
 		return this;
 	}
 
-	public void close() {
+	public SVG_Path close() {
 		elements.add(new CloseLoop());
+		return this;
 	}
 
 	@Override

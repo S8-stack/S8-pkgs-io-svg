@@ -59,7 +59,7 @@ public abstract class SVG_Shape {
 	public abstract void print(StringBuilder builder, ViewBox viewBox) throws IOException;
 
 
-	public abstract SVG_Shape rewrite(SVG_Rewriter transform);
+	public abstract SVG_Shape rewrite(SVG_Rewriter rewriter);
 	
 
 	/**
