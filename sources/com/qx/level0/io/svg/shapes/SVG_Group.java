@@ -31,8 +31,15 @@ public class SVG_Group extends SVG_Shape {
 	}
 	
 	
+	/**
+	 * Null shape ignored.
+	 * 
+	 * @param shape
+	 */
 	public void add(SVG_Shape shape){
-		shapes.add(shape);
+		if(shape!=null) {
+			shapes.add(shape);	
+		}
 	}
 
 

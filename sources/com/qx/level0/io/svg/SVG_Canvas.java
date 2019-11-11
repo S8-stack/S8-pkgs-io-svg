@@ -71,12 +71,18 @@ public class SVG_Canvas {
 	}
 	
 	
+	/**
+	 * Null shape ignored
+	 * @param shape
+	 */
 	public void add(SVG_Shape shape){
-		if(shapeCount>maxNumberOfShapes){
-			throw new RuntimeException("max number of shapes exceed");
+		if(shape!=null) {
+			if(shapeCount>maxNumberOfShapes){
+				throw new RuntimeException("max number of shapes exceed");
+			}
+			shapes.add(shape);
+			shapeCount++;	
 		}
-		shapes.add(shape);
-		shapeCount++;
 	}
 
 
@@ -87,21 +93,7 @@ public class SVG_Canvas {
 	 * @throws IOException
 	 */
 	public void print(String pathname) {
-		try {
-			// print shapes
-			OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(new File(pathname)));
-
-			// add header
-			writer.append(HEADER_LINE1);
-			writer.append(HEADER_LINE2);
-
-			writer.append(printToHTML());
-
-			writer.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		print(pathname, DEFAULT_WIDTH);
 	}
 	
 	/**
@@ -128,11 +120,6 @@ public class SVG_Canvas {
 	}
 	
 	
-	public String printToHTML() throws IOException {
-		return printToHTML(DEFAULT_WIDTH);
-	}
-	
-
 	public String printToHTML(double width) throws IOException {
 		// compute the bounding box
 		

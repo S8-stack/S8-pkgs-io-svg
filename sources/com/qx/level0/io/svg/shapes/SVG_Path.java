@@ -155,6 +155,7 @@ public class SVG_Path extends SVG_Shape {
 			}
 		}
 	}
+	
 
 	private class Vertical extends Element {
 
