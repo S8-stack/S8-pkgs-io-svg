@@ -1,12 +1,12 @@
 package com.qx.level0.io.svg.shapes;
 
-import com.qx.level0.maths.MathVector2D;
+import com.qx.level0.maths.MathVector2d;
 
 public interface SVG_Rewriter {
 	
-	public abstract MathVector2D transformPoint(MathVector2D point);
+	public abstract MathVector2d transformPoint(MathVector2d point);
 	
-	public abstract MathVector2D transformVector(MathVector2D vector);
+	public abstract MathVector2d transformVector(MathVector2d vector);
 	
 	
 	/**

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.qx.level0.io.svg.ViewBox;
-import com.qx.level0.maths.MathVector2D;
+import com.qx.level0.maths.MathVector2d;
 
 public class SVG_Path extends SVG_Shape {
 
@@ -34,7 +34,7 @@ public class SVG_Path extends SVG_Shape {
 			this.y = y;
 		}
 
-		public MoveTo(MathVector2D point) {
+		public MoveTo(MathVector2d point) {
 			super();
 			this.x = point.x;
 			this.y = point.y;
@@ -55,7 +55,7 @@ public class SVG_Path extends SVG_Shape {
 
 		@Override
 		public Element transform(SVG_Rewriter transform) {
-			return new MoveTo(transform.transformPoint(new MathVector2D(x, y)));
+			return new MoveTo(transform.transformPoint(new MathVector2d(x, y)));
 		}
 	}
 
@@ -85,7 +85,7 @@ public class SVG_Path extends SVG_Shape {
 		
 		@Override
 		public Element transform(SVG_Rewriter transform) {
-			MathVector2D transformedVector = transform.transformVector(new MathVector2D(dx, dy));
+			MathVector2d transformedVector = transform.transformVector(new MathVector2d(dx, dy));
 			return new Line(transformedVector.x, transformedVector.y);
 		}
 	}
@@ -115,7 +115,7 @@ public class SVG_Path extends SVG_Shape {
 		
 		@Override
 		public Element transform(SVG_Rewriter transform) {
-			MathVector2D transformedPoint = transform.transformPoint(new MathVector2D(x, y));
+			MathVector2d transformedPoint = transform.transformPoint(new MathVector2d(x, y));
 			return new LineTo(transformedPoint.x, transformedPoint.y);
 		}
 	}
@@ -143,7 +143,7 @@ public class SVG_Path extends SVG_Shape {
 		
 		@Override
 		public Element transform(SVG_Rewriter transform) {
-			MathVector2D transformedVector = transform.transformVector(new MathVector2D(dx, 0)); 
+			MathVector2d transformedVector = transform.transformVector(new MathVector2d(dx, 0)); 
 			if(transform.isRotationExact() && Math.abs(transformedVector.y)<1e-6) {
 				return new Horizontal(transformedVector.x);
 			}
@@ -180,7 +180,7 @@ public class SVG_Path extends SVG_Shape {
 		
 		@Override
 		public Element transform(SVG_Rewriter transform) {
-			MathVector2D transformedVector = transform.transformVector(new MathVector2D(0, dy)); 
+			MathVector2d transformedVector = transform.transformVector(new MathVector2d(0, dy)); 
 			if(transform.isRotationExact() && Math.abs(transformedVector.y)<1e-6) {
 				return new Horizontal(transformedVector.x);
 			}
@@ -243,7 +243,7 @@ public class SVG_Path extends SVG_Shape {
 	
 		@Override
 		public Element transform(SVG_Rewriter transform) {
-			MathVector2D transformedVector = transform.transformVector(new MathVector2D(dx, dy)); 
+			MathVector2d transformedVector = transform.transformVector(new MathVector2d(dx, dy)); 
 			return new Arc(transform.transformScalar(r), isLargeArc, isCounterClockwise, transformedVector.x, transformedVector.y);
 		}
 	

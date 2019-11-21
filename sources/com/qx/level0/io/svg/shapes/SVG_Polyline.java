@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.qx.level0.io.svg.ViewBox;
 import com.qx.level0.io.svg.ViewBoxUpdateType;
-import com.qx.level0.maths.MathVector2D;
+import com.qx.level0.maths.MathVector2d;
 
 
 
@@ -35,7 +35,7 @@ public class SVG_Polyline extends SVG_Shape{
 		this.nPoints = coordinates.length/2;
 	}
 	
-	public SVG_Polyline(String className, MathVector2D[] points){
+	public SVG_Polyline(String className, MathVector2d[] points){
 		super(className);
 		this.coordinates = SVG_Polygon.toCoordinates(points);
 		this.nPoints = points.length;
@@ -50,7 +50,7 @@ public class SVG_Polyline extends SVG_Shape{
 		this.pointsRadius = pointsRadius;
 	}
 	
-	public SVG_Polyline(String className, MathVector2D[] points, double pointsRadius){
+	public SVG_Polyline(String className, MathVector2d[] points, double pointsRadius){
 		super(className);
 		this.coordinates = SVG_Polygon.toCoordinates(points);
 		this.nPoints = points.length/2;
@@ -112,9 +112,9 @@ public class SVG_Polyline extends SVG_Shape{
 	public SVG_Polyline rewrite(SVG_Rewriter transform) {
 		double[] transformedCoordinates = new double[2*nPoints];
 		int n = coordinates.length;
-		MathVector2D transformedPoint;
+		MathVector2d transformedPoint;
 		for(int i=0; i<n; i++) {
-			transformedPoint = transform.transformPoint(new MathVector2D(coordinates[i], coordinates[i+1]));
+			transformedPoint = transform.transformPoint(new MathVector2d(coordinates[i], coordinates[i+1]));
 			transformedCoordinates[i] = transformedPoint.x;
 			transformedCoordinates[i+1] = transformedPoint.y;
 		}

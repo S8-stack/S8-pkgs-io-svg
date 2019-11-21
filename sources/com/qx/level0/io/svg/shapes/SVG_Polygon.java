@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import com.qx.level0.io.svg.ViewBox;
 import com.qx.level0.io.svg.ViewBoxUpdateType;
-import com.qx.level0.maths.MathVector2D;
+import com.qx.level0.maths.MathVector2d;
 
 
 
@@ -41,7 +41,7 @@ public class SVG_Polygon extends SVG_Shape{
 		this.nPoints = coordinates.length/2;
 	}
 
-	public SVG_Polygon(String className, MathVector2D[] points){
+	public SVG_Polygon(String className, MathVector2d[] points){
 		super(className);
 		this.coordinates = toCoordinates(points);
 		this.nPoints = points.length;
@@ -71,7 +71,7 @@ public class SVG_Polygon extends SVG_Shape{
 		nPoints = 3;
 	}
 
-	public SVG_Polygon(String style, MathVector2D p0, MathVector2D p1, MathVector2D p2) {
+	public SVG_Polygon(String style, MathVector2d p0, MathVector2d p1, MathVector2d p2) {
 		super(style);
 		coordinates = new double[6];
 		coordinates[0] = p0.x; coordinates[1] = p0.y;
@@ -136,9 +136,9 @@ public class SVG_Polygon extends SVG_Shape{
 	public SVG_Polygon rewrite(SVG_Rewriter transform) {
 		double[] transformedCoordinates = new double[2*nPoints];
 		int n = coordinates.length;
-		MathVector2D transformedPoint;
+		MathVector2d transformedPoint;
 		for(int i=0; i<n; i++) {
-			transformedPoint = transform.transformPoint(new MathVector2D(coordinates[i], coordinates[i+1]));
+			transformedPoint = transform.transformPoint(new MathVector2d(coordinates[i], coordinates[i+1]));
 			transformedCoordinates[i] = transformedPoint.x;
 			transformedCoordinates[i+1] = transformedPoint.y;
 		}
@@ -148,11 +148,11 @@ public class SVG_Polygon extends SVG_Shape{
 
 
 
-	public static double[] toCoordinates(MathVector2D[] points) {
+	public static double[] toCoordinates(MathVector2d[] points) {
 		int n = points.length;
 		double[] coordinates = new double[2*n];
 		int index=0;
-		MathVector2D point;
+		MathVector2d point;
 		for(int i=0; i<n; i++) {
 			point = points[i];
 			coordinates[index++] = point.x;

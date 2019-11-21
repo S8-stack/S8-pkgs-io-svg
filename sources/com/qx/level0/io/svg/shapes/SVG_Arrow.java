@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import com.qx.level0.io.svg.ViewBox;
 import com.qx.level0.io.svg.ViewBoxUpdateType;
-import com.qx.level0.maths.MathVector2D;
+import com.qx.level0.maths.MathVector2d;
 
 
 
@@ -33,7 +33,7 @@ public class SVG_Arrow extends SVG_Shape{
 	}
 
 
-	public SVG_Arrow(String style, MathVector2D point0, MathVector2D point1) {
+	public SVG_Arrow(String style, MathVector2d point0, MathVector2d point1) {
 		super(style);
 		this.x1 = point0.x;
 		this.y1 = point0.y;

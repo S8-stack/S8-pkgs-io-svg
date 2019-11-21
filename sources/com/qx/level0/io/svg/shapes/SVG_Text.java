@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.qx.level0.io.svg.ViewBox;
 import com.qx.level0.io.svg.ViewBoxUpdateType;
-import com.qx.level0.maths.MathVector2D;
+import com.qx.level0.maths.MathVector2d;
 
 public class SVG_Text extends SVG_Shape {
 
@@ -34,7 +34,7 @@ public class SVG_Text extends SVG_Shape {
 	}
 	
 	
-	public SVG_Text(String className, MathVector2D point, String text) {
+	public SVG_Text(String className, MathVector2d point, String text) {
 		super(className);
 		this.x = point.x;
 		this.y = point.y;
@@ -66,7 +66,7 @@ public class SVG_Text extends SVG_Shape {
 
 	@Override
 	public SVG_Shape rewrite(SVG_Rewriter transform) {
-		return new SVG_Text(className, transform.transformPoint(new MathVector2D(x, y)), text);
+		return new SVG_Text(className, transform.transformPoint(new MathVector2d(x, y)), text);
 	}
 	
 	

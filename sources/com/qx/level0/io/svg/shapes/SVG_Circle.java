@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.qx.level0.io.svg.ViewBox;
 import com.qx.level0.io.svg.ViewBoxUpdateType;
-import com.qx.level0.maths.MathVector2D;
+import com.qx.level0.maths.MathVector2d;
 
 
 
@@ -27,7 +27,7 @@ public class SVG_Circle extends SVG_Shape{
 	}
 
 
-	public SVG_Circle(String className, MathVector2D center, double r) {
+	public SVG_Circle(String className, MathVector2d center, double r) {
 		super(className);
 		this.xCenter = center.x;
 		this.yCenter = center.y;
@@ -82,7 +82,7 @@ public class SVG_Circle extends SVG_Shape{
 	@Override
 	public SVG_Shape rewrite(SVG_Rewriter transform) {
 		return new SVG_Circle(className, 
-				transform.transformPoint(new MathVector2D(xCenter, yCenter)), 
+				transform.transformPoint(new MathVector2d(xCenter, yCenter)), 
 				transform.transformScalar(r));
 	}
 

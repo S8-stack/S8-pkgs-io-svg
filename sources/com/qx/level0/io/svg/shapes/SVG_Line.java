@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.qx.level0.io.svg.ViewBox;
 import com.qx.level0.io.svg.ViewBoxUpdateType;
-import com.qx.level0.maths.MathVector2D;
+import com.qx.level0.maths.MathVector2d;
 
 
 /**
@@ -42,7 +42,7 @@ public class SVG_Line extends SVG_Shape{
 	}
 	
 	
-	public SVG_Line(String className, MathVector2D point0, MathVector2D point1) {
+	public SVG_Line(String className, MathVector2d point0, MathVector2d point1) {
 		super(className);
 		this.x1 = point0.x;
 		this.y1 = point0.y;
@@ -94,8 +94,8 @@ public class SVG_Line extends SVG_Shape{
 	public SVG_Shape rewrite(SVG_Rewriter transform) {
 		
 		return new SVG_Line(className, 
-				transform.transformPoint(new MathVector2D(x1, y1)),
-				transform.transformPoint(new MathVector2D(x2, y2)));
+				transform.transformPoint(new MathVector2d(x1, y1)),
+				transform.transformPoint(new MathVector2d(x2, y2)));
 	}
 
 
