@@ -1,6 +1,6 @@
-package com.qx.level0.io.svg.transform;
+package com.qx.io.svg.transform;
 
-import com.qx.level0.io.svg.ViewBox;
+import com.qx.io.svg.ViewBox;
 
 public class SVG_Rotate extends SVG_Transform {
 	

@@ -1,11 +1,12 @@
-package com.qx.level0.io.svg.shapes;
+package com.qx.io.svg.shapes;
 
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.qx.level0.io.svg.ViewBox;
+import com.qx.io.svg.SVG_BoundingBox2D;
+import com.qx.io.svg.ViewBox;
 
 public class SVG_Group extends SVG_Shape {
 
@@ -44,9 +45,9 @@ public class SVG_Group extends SVG_Shape {
 
 
 	@Override
-	public void updateBoundingBox(ViewBox viewBox){
+	public void updateBoundingBox(SVG_BoundingBox2D box){
 		for(SVG_Shape shape : shapes){
-			shape.updateBoundingBox(viewBox);
+			shape.updateBoundingBox(box);
 		}
 	}
 

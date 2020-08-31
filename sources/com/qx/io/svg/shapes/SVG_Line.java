@@ -1,10 +1,11 @@
-package com.qx.level0.io.svg.shapes;
+package com.qx.io.svg.shapes;
 
 import java.io.IOException;
 
-import com.qx.level0.io.svg.ViewBox;
-import com.qx.level0.io.svg.ViewBoxUpdateType;
-import com.qx.level0.maths.MathVector2d;
+import com.qx.io.svg.SVG_BoundingBox2D;
+import com.qx.io.svg.SVG_Vector;
+import com.qx.io.svg.ViewBox;
+import com.qx.io.svg.ViewBoxUpdateType;
 
 
 /**
@@ -42,12 +43,12 @@ public class SVG_Line extends SVG_Shape{
 	}
 	
 	
-	public SVG_Line(String className, MathVector2d point0, MathVector2d point1) {
+	public SVG_Line(String className, SVG_Vector point0, SVG_Vector point1) {
 		super(className);
-		this.x1 = point0.x;
-		this.y1 = point0.y;
-		this.x2 = point1.x;
-		this.y2 = point1.y;
+		this.x1 = point0.getX();
+		this.y1 = point0.getY();
+		this.x2 = point1.getX();
+		this.y2 = point1.getY();
 	}
 
 
@@ -62,11 +63,11 @@ public class SVG_Line extends SVG_Shape{
 
 
 	@Override
-	public void updateBoundingBox(ViewBox viewBox){
+	public void updateBoundingBox(SVG_BoundingBox2D box){
 		switch(updateType){
 		case Contained :
-			viewBox.updateBoundingBox(x1, y1);
-			viewBox.updateBoundingBox(x2, y2);
+			box.update(x1, y1);
+			box.update(x2, y2);
 			break;
 
 		default: break;
@@ -93,9 +94,7 @@ public class SVG_Line extends SVG_Shape{
 	@Override
 	public SVG_Shape rewrite(SVG_Rewriter transform) {
 		
-		return new SVG_Line(className, 
-				transform.transformPoint(new MathVector2d(x1, y1)),
-				transform.transformPoint(new MathVector2d(x2, y2)));
+		return new SVG_Line(className, transform.onPoint(x1, y1), transform.onPoint(x2, y2));
 	}
 
 

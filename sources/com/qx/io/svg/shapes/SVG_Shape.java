@@ -1,8 +1,10 @@
-package com.qx.level0.io.svg.shapes;
+package com.qx.io.svg.shapes;
 
 import java.io.IOException;
 
-import com.qx.level0.io.svg.ViewBox;
+import com.qx.io.svg.SVG_BoundingBox2D;
+import com.qx.io.svg.ViewBox;
+
 
 public abstract class SVG_Shape {
 
@@ -53,7 +55,7 @@ public abstract class SVG_Shape {
 		}
 	}
 
-	public abstract void updateBoundingBox(ViewBox viewBox);
+	public abstract void updateBoundingBox(SVG_BoundingBox2D box);
 
 
 	public abstract void print(StringBuilder builder, ViewBox viewBox) throws IOException;

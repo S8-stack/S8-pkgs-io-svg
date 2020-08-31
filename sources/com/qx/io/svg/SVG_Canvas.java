@@ -1,4 +1,4 @@
-package com.qx.level0.io.svg;
+package com.qx.io.svg;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -9,7 +9,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.qx.level0.io.svg.shapes.SVG_Shape;
+import com.qx.io.svg.shapes.SVG_Shape;
 
 
 
@@ -45,32 +45,39 @@ public class SVG_Canvas {
 
 
 	protected final static int maxNumberOfShapes = (int) 1e6;
-	
-	private static final int MARGIN = 20;
-	private static final int DEFAULT_WIDTH = 800;
-	
+
 	protected int shapeCount;
-	protected ViewBox viewBox;
+	
+	private final ViewBox viewBox;
+
+
+	/**
+	 * Total width of the canvas (height is size accordingly, keeping ratio)
+	 */
+	public double width = 1024;
+
+	public double leftPadding = 64;
+
+	public double rightPadding = 64;
+	
+	public double topPadding = 16;
+
+	public double bottomPadding = 16;
+
 
 	public SVG_Canvas(){
 		super();
-		viewBox = new ViewBox();
+		viewBox = new ViewBox(this);
 		initialize();
 	}
 	
-	public SVG_Canvas(double scaling, double padding){
-		super();
-		viewBox = new ViewBox(scaling, padding);
-		initialize();
-	}
 
-	
 	private void initialize() {
 		shapes = new ArrayList<SVG_Shape>();
 		shapeCount = 0;
 	}
-	
-	
+
+
 	/**
 	 * Null shape ignored
 	 * @param shape
@@ -93,15 +100,6 @@ public class SVG_Canvas {
 	 * @throws IOException
 	 */
 	public void print(String pathname) {
-		print(pathname, DEFAULT_WIDTH);
-	}
-	
-	/**
-	 * Print shapes
-	 * @param writer
-	 * @throws IOException
-	 */
-	public void print(String pathname, double width) {
 		try {
 			// print shapes
 			OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(new File(pathname)));
@@ -118,24 +116,25 @@ public class SVG_Canvas {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 	public String printToHTML(double width) throws IOException {
 		// compute the bounding box
-		
+
+		SVG_BoundingBox2D boundingBox2d = viewBox.getBoundingBox();
 		for(SVG_Shape shape : shapes){
-			shape.updateBoundingBox(viewBox);
+			shape.updateBoundingBox(boundingBox2d);
 		}
 
 
 		// initialize transformations
-
 		viewBox.compile();
 
 
-		double height = viewBox.getFixRatioHeight(width);
 		StringBuilder builder = new StringBuilder();
-		builder.append("<svg version=\"1.1\" viewBox=\""+viewBox.toString()+"\" width=\""+width+"\" height=\""+height+"\" margin=\""+MARGIN+"\" xmlns=\""+XMLNS+"\">\n");
+		builder.append("<svg version=\"1.1\" ");
+		viewBox.print(builder);
+		builder.append(" xmlns=\""+XMLNS+"\">\n");
 		for(SVG_Shape shape : shapes){
 			shape.print(builder, viewBox);
 		}

@@ -1,10 +1,11 @@
-package com.qx.level0.io.svg.shapes;
+package com.qx.io.svg.shapes;
 
 import java.io.IOException;
 
-import com.qx.level0.io.svg.ViewBox;
-import com.qx.level0.io.svg.ViewBoxUpdateType;
-import com.qx.level0.maths.MathVector2d;
+import com.qx.io.svg.SVG_BoundingBox2D;
+import com.qx.io.svg.SVG_Vector;
+import com.qx.io.svg.ViewBox;
+import com.qx.io.svg.ViewBoxUpdateType;
 
 public class SVG_Text extends SVG_Shape {
 
@@ -34,18 +35,18 @@ public class SVG_Text extends SVG_Shape {
 	}
 	
 	
-	public SVG_Text(String className, MathVector2d point, String text) {
+	public SVG_Text(String className, SVG_Vector point, String text) {
 		super(className);
-		this.x = point.x;
-		this.y = point.y;
+		this.x = point.getX();
+		this.y = point.getY();
 		this.text=text;
 	}
 
 
 	@Override
-	public void updateBoundingBox(ViewBox viewBox){
+	public void updateBoundingBox(SVG_BoundingBox2D box){
 		//int a=text.toCharArray().length;
-		viewBox.updateBoundingBox(x, y);
+		box.update(x, y);
 		//viewBox.updateBoundingBox(x+(viewBox.xMax-viewBox.xMin)/200*a, y);
 		//viewBox.updateBoundingBox(x, y+(viewBox.yMax-viewBox.yMin)/50);
 	}
@@ -66,7 +67,7 @@ public class SVG_Text extends SVG_Shape {
 
 	@Override
 	public SVG_Shape rewrite(SVG_Rewriter transform) {
-		return new SVG_Text(className, transform.transformPoint(new MathVector2d(x, y)), text);
+		return new SVG_Text(className, transform.onPoint(x, y), text);
 	}
 	
 	

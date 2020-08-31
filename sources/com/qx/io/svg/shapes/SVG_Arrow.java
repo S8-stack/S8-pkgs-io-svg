@@ -1,18 +1,18 @@
-package com.qx.level0.io.svg.shapes;
+package com.qx.io.svg.shapes;
 
 
 
 import java.io.IOException;
 
-import com.qx.level0.io.svg.ViewBox;
-import com.qx.level0.io.svg.ViewBoxUpdateType;
-import com.qx.level0.maths.MathVector2d;
+import com.qx.io.svg.SVG_BoundingBox2D;
+import com.qx.io.svg.SVG_Vector;
+import com.qx.io.svg.ViewBox;
+import com.qx.io.svg.ViewBoxUpdateType;
 
 
 
 
-
-public class SVG_Arrow extends SVG_Shape{
+public class SVG_Arrow extends SVG_Shape {
 
 	public ViewBoxUpdateType updateType = ViewBoxUpdateType.Contained;
 
@@ -33,14 +33,30 @@ public class SVG_Arrow extends SVG_Shape{
 	}
 
 
-	public SVG_Arrow(String style, MathVector2d point0, MathVector2d point1) {
+	
+	/**
+	 * 
+	 * @param style
+	 * @param point0
+	 * @param point1
+	 */
+	public SVG_Arrow(String style, SVG_Vector point0, SVG_Vector point1) {
 		super(style);
-		this.x1 = point0.x;
-		this.y1 = point0.y;
-		this.x2 = point1.x;
-		this.y2 = point1.y;
+		this.x1 = point0.getX();
+		this.y1 = point0.getY();
+		this.x2 = point1.getX();
+		this.y2 = point1.getY();
 	}
 
+	
+	/**
+	 * 
+	 * @param style
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 */
 	public SVG_Arrow(String style, double x1, double y1, double x2, double y2) {
 		super(style);
 		this.x1 = x1;
@@ -52,11 +68,11 @@ public class SVG_Arrow extends SVG_Shape{
 
 
 	@Override
-	public void updateBoundingBox(ViewBox viewBox){
+	public void updateBoundingBox(SVG_BoundingBox2D box){
 		switch(updateType){
 		case Contained :
-			viewBox.updateBoundingBox(x1, y1);
-			viewBox.updateBoundingBox(x2, y2);
+			box.update(x1, y1);
+			box.update(x2, y2);
 			break;
 
 		default: break;

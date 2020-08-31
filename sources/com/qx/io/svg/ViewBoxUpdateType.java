@@ -1,4 +1,4 @@
-package com.qx.level0.io.svg;
+package com.qx.io.svg;
 
 public enum ViewBoxUpdateType {
 	Contained, Center, NoUpdate;

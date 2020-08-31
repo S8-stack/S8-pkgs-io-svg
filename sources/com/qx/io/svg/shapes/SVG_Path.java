@@ -1,11 +1,12 @@
-package com.qx.level0.io.svg.shapes;
+package com.qx.io.svg.shapes;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.qx.level0.io.svg.ViewBox;
-import com.qx.level0.maths.MathVector2d;
+import com.qx.io.svg.SVG_BoundingBox2D;
+import com.qx.io.svg.SVG_Vector;
+import com.qx.io.svg.ViewBox;
 
 public class SVG_Path extends SVG_Shape {
 
@@ -16,7 +17,7 @@ public class SVG_Path extends SVG_Shape {
 
 	private abstract class Element {
 
-		public abstract void update(Position position, ViewBox box);
+		public abstract void update(Position position, SVG_BoundingBox2D box);
 
 		public abstract void print(StringBuilder builder, ViewBox viewBox);
 
@@ -34,17 +35,17 @@ public class SVG_Path extends SVG_Shape {
 			this.y = y;
 		}
 
-		public MoveTo(MathVector2d point) {
+		public MoveTo(SVG_Vector point) {
 			super();
-			this.x = point.x;
-			this.y = point.y;
+			this.x = point.getX();
+			this.y = point.getY();
 		}
 
 		@Override
-		public void update(Position p, ViewBox box) {
+		public void update(Position p, SVG_BoundingBox2D box) {
 			p.x=x;
 			p.y=y;
-			box.updateBoundingBox(p.x, p.y);
+			box.update(p.x, p.y);
 		}
 
 		@Override
@@ -55,7 +56,7 @@ public class SVG_Path extends SVG_Shape {
 
 		@Override
 		public Element transform(SVG_Rewriter transform) {
-			return new MoveTo(transform.transformPoint(new MathVector2d(x, y)));
+			return new MoveTo(transform.onPoint(x, y));
 		}
 	}
 
@@ -69,12 +70,18 @@ public class SVG_Path extends SVG_Shape {
 			this.dx = dx;
 			this.dy = dy;
 		}
+		
+		public Line(SVG_Vector vector) {
+			super();
+			this.dx = vector.getX();
+			this.dy = vector.getY();
+		}
 
 		@Override
-		public void update(Position p, ViewBox box) {
+		public void update(Position p, SVG_BoundingBox2D box) {
 			p.x+=dx;
 			p.y+=dy;
-			box.updateBoundingBox(p.x, p.y);
+			box.update(p.x, p.y);
 		}
 
 		@Override
@@ -85,8 +92,7 @@ public class SVG_Path extends SVG_Shape {
 		
 		@Override
 		public Element transform(SVG_Rewriter transform) {
-			MathVector2d transformedVector = transform.transformVector(new MathVector2d(dx, dy));
-			return new Line(transformedVector.x, transformedVector.y);
+			return new Line(transform.onVector(dx, dy));
 		}
 	}
 	
@@ -99,12 +105,18 @@ public class SVG_Path extends SVG_Shape {
 			this.x = x;
 			this.y = y;
 		}
+		
+		public LineTo(SVG_Vector point) {
+			super();
+			this.x = point.getX();
+			this.y = point.getY();
+		}
 
 		@Override
-		public void update(Position p, ViewBox box) {
+		public void update(Position p, SVG_BoundingBox2D box) {
 			p.x=x;
 			p.y=y;
-			box.updateBoundingBox(p.x, p.y);
+			box.update(p.x, p.y);
 		}
 
 		@Override
@@ -115,8 +127,7 @@ public class SVG_Path extends SVG_Shape {
 		
 		@Override
 		public Element transform(SVG_Rewriter transform) {
-			MathVector2d transformedPoint = transform.transformPoint(new MathVector2d(x, y));
-			return new LineTo(transformedPoint.x, transformedPoint.y);
+			return new LineTo(transform.onPoint(x, y));
 		}
 	}
 
@@ -130,9 +141,9 @@ public class SVG_Path extends SVG_Shape {
 		}
 
 		@Override
-		public void update(Position p, ViewBox box) {
+		public void update(Position p, SVG_BoundingBox2D box) {
 			p.x+=dx;
-			box.updateBoundingBox(p.x, p.y);
+			box.update(p.x, p.y);
 		}
 
 		@Override
@@ -143,15 +154,15 @@ public class SVG_Path extends SVG_Shape {
 		
 		@Override
 		public Element transform(SVG_Rewriter transform) {
-			MathVector2d transformedVector = transform.transformVector(new MathVector2d(dx, 0)); 
-			if(transform.isRotationExact() && Math.abs(transformedVector.y)<1e-6) {
-				return new Horizontal(transformedVector.x);
+			SVG_Vector transformedVector = transform.onVector(dx, 0); 
+			if(transform.isRotationExact() && Math.abs(transformedVector.getY())<1e-6) {
+				return new Horizontal(transformedVector.getX());
 			}
-			else if(transform.isRotationExact() && Math.abs(transformedVector.x)<1e-6){
-				return new Vertical(transformedVector.y);
+			else if(transform.isRotationExact() && Math.abs(transformedVector.getY())<1e-6){
+				return new Vertical(transformedVector.getY());
 			}
 			else {
-				return new Line(transformedVector.x, transformedVector.y);
+				return new Line(transformedVector.getX(), transformedVector.getY());
 			}
 		}
 	}
@@ -167,9 +178,9 @@ public class SVG_Path extends SVG_Shape {
 		}
 
 		@Override
-		public void update(Position p, ViewBox box) {
+		public void update(Position p, SVG_BoundingBox2D box) {
 			p.y+=dy;
-			box.updateBoundingBox(p.x, p.y);
+			box.update(p.x, p.y);
 		}
 
 		@Override
@@ -180,15 +191,15 @@ public class SVG_Path extends SVG_Shape {
 		
 		@Override
 		public Element transform(SVG_Rewriter transform) {
-			MathVector2d transformedVector = transform.transformVector(new MathVector2d(0, dy)); 
-			if(transform.isRotationExact() && Math.abs(transformedVector.y)<1e-6) {
-				return new Horizontal(transformedVector.x);
+			SVG_Vector transformedVector = transform.onVector(0, dy); 
+			if(transform.isRotationExact() && Math.abs(transformedVector.getY())<1e-6) {
+				return new Horizontal(transformedVector.getX());
 			}
-			else if(transform.isRotationExact() && Math.abs(transformedVector.x)<1e-6){
-				return new Vertical(transformedVector.y);
+			else if(transform.isRotationExact() && Math.abs(transformedVector.getX())<1e-6){
+				return new Vertical(transformedVector.getY());
 			}
 			else {
-				return new Line(transformedVector.x, transformedVector.y);
+				return new Line(transformedVector.getX(), transformedVector.getY());
 			}
 		}
 
@@ -216,15 +227,24 @@ public class SVG_Path extends SVG_Shape {
 			this.dx = dx;
 			this.dy = dy;
 		}
+		
+		public Arc(double r, boolean isLargeArc, boolean isCounterClockwise, SVG_Vector vector) {
+			super();
+			this.r = r;
+			this.isLargeArc = isLargeArc;
+			this.isCounterClockwise = isCounterClockwise;
+			this.dx = vector.getX();
+			this.dy = vector.getY();
+		}
 
 		@Override
-		public void update(Position position, ViewBox box) {
+		public void update(Position position, SVG_BoundingBox2D box) {
 			position.x+=dx;
 			position.y+=dy;
-			box.updateBoundingBox(position.x+r, position.y+r);
-			box.updateBoundingBox(position.x-r, position.y+r);
-			box.updateBoundingBox(position.x-r, position.y-r);
-			box.updateBoundingBox(position.x+r, position.y-r);
+			box.update(position.x+r, position.y+r);
+			box.update(position.x-r, position.y+r);
+			box.update(position.x-r, position.y-r);
+			box.update(position.x+r, position.y-r);
 		}
 
 
@@ -243,8 +263,8 @@ public class SVG_Path extends SVG_Shape {
 	
 		@Override
 		public Element transform(SVG_Rewriter transform) {
-			MathVector2d transformedVector = transform.transformVector(new MathVector2d(dx, dy)); 
-			return new Arc(transform.transformScalar(r), isLargeArc, isCounterClockwise, transformedVector.x, transformedVector.y);
+			SVG_Vector transformedVector = transform.onVector(dx, dy); 
+			return new Arc(transform.onScalar(r), isLargeArc, isCounterClockwise, transformedVector);
 		}
 	
 	}
@@ -252,7 +272,7 @@ public class SVG_Path extends SVG_Shape {
 	private class CloseLoop extends Element {
 
 		@Override
-		public void update(Position position, ViewBox box) {
+		public void update(Position position, SVG_BoundingBox2D box) {
 			// nothing to update
 		}
 
@@ -330,7 +350,7 @@ public class SVG_Path extends SVG_Shape {
 	}
 
 	@Override
-	public void updateBoundingBox(ViewBox box) {
+	public void updateBoundingBox(SVG_BoundingBox2D box) {
 		Position position = new Position();
 		for(Element element : elements) {
 			element.update(position, box);

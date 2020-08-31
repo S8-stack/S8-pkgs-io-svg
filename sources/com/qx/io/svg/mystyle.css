@@ -21,10 +21,10 @@
   fill: grey;
 }
 
-.pipe {
-  stroke: black;
-  stroke-width: 1.0;
-  fill: #dddddd;
+.point {
+  stroke: red;
+  stroke-width: 0.2;
+  fill: blue;
 }
 
 /*

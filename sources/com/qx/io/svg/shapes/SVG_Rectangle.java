@@ -1,9 +1,10 @@
-package com.qx.level0.io.svg.shapes;
+package com.qx.io.svg.shapes;
 
 import java.io.IOException;
 
-import com.qx.level0.io.svg.ViewBox;
-import com.qx.level0.io.svg.ViewBoxUpdateType;
+import com.qx.io.svg.SVG_BoundingBox2D;
+import com.qx.io.svg.ViewBox;
+import com.qx.io.svg.ViewBoxUpdateType;
 
 
 public class SVG_Rectangle extends SVG_Shape{
@@ -52,11 +53,11 @@ public class SVG_Rectangle extends SVG_Shape{
 
 
 	@Override
-	public void updateBoundingBox(ViewBox viewBox){
+	public void updateBoundingBox(SVG_BoundingBox2D box){
 		switch(updateType){
 		case Contained :
-			viewBox.updateBoundingBox(x1, y1);
-			viewBox.updateBoundingBox(x2, y2);
+			box.update(x1, y1);
+			box.update(x2, y2);
 			break;
 
 		default: break;

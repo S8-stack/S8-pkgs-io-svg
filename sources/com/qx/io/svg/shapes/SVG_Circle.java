@@ -1,17 +1,17 @@
-package com.qx.level0.io.svg.shapes;
+package com.qx.io.svg.shapes;
 
 import java.io.IOException;
 
-import com.qx.level0.io.svg.ViewBox;
-import com.qx.level0.io.svg.ViewBoxUpdateType;
-import com.qx.level0.maths.MathVector2d;
+import com.qx.io.svg.SVG_BoundingBox2D;
+import com.qx.io.svg.SVG_Vector;
+import com.qx.io.svg.ViewBox;
+import com.qx.io.svg.ViewBoxUpdateType;
 
 
 
 
 
-
-public class SVG_Circle extends SVG_Shape{
+public class SVG_Circle extends SVG_Shape {
 	
 	public ViewBoxUpdateType type = ViewBoxUpdateType.Contained;
 	
@@ -27,12 +27,13 @@ public class SVG_Circle extends SVG_Shape{
 	}
 
 
-	public SVG_Circle(String className, MathVector2d center, double r) {
+	public SVG_Circle(String className, SVG_Vector center, double r) {
 		super(className);
-		this.xCenter = center.x;
-		this.yCenter = center.y;
+		this.xCenter = center.getX();
+		this.yCenter = center.getY();
 		this.r = r;
 	}
+	
 	
 	
 	public SVG_Circle(String className, double cx, double cy, double r) {
@@ -45,19 +46,20 @@ public class SVG_Circle extends SVG_Shape{
 	
 
 
+
 	@Override
-	public void updateBoundingBox(ViewBox viewBox){
+	public void updateBoundingBox(SVG_BoundingBox2D box){
 		switch(type){
 
 		case Center : 
-			viewBox.updateBoundingBox(xCenter, yCenter);
+			box.update(xCenter, yCenter);
 			break;
 
 		case Contained : 
-			viewBox.updateBoundingBox(xCenter-r, yCenter-r);
-			viewBox.updateBoundingBox(xCenter-r, yCenter+r);
-			viewBox.updateBoundingBox(xCenter+r, yCenter-r);
-			viewBox.updateBoundingBox(xCenter+r, yCenter+r);
+			box.update(xCenter-r, yCenter-r);
+			box.update(xCenter-r, yCenter+r);
+			box.update(xCenter+r, yCenter-r);
+			box.update(xCenter+r, yCenter+r);
 			break;
 
 		default :
@@ -81,9 +83,7 @@ public class SVG_Circle extends SVG_Shape{
 
 	@Override
 	public SVG_Shape rewrite(SVG_Rewriter transform) {
-		return new SVG_Circle(className, 
-				transform.transformPoint(new MathVector2d(xCenter, yCenter)), 
-				transform.transformScalar(r));
+		return new SVG_Circle(className, transform.onPoint(xCenter, yCenter), transform.onScalar(r));
 	}
 
 
