@@ -1,4 +1,10 @@
-module com.qx.level0.io.svg {
+
+/**
+ * 
+ * @author pierreconvert
+ *
+ */
+module com.qx.io.svg {
 	
 	exports com.qx.io.svg;
 	exports com.qx.io.svg.shapes;
