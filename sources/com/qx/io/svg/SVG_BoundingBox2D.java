@@ -2,6 +2,12 @@ package com.qx.io.svg;
 
 import com.qx.io.svg.SVG_Vector.Vec;
 
+
+/**
+ * 
+ * @author pierreconvert
+ *
+ */
 public class SVG_BoundingBox2D {
 
 	public double xMin, xMax;

@@ -6,6 +6,11 @@ import com.qx.io.svg.SVG_BoundingBox2D;
 import com.qx.io.svg.ViewBox;
 
 
+/**
+ * 
+ * @author pierreconvert
+ *
+ */
 public abstract class SVG_Shape {
 
 	/**

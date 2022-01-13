@@ -13,7 +13,11 @@ import com.qx.io.svg.shapes.SVG_Shape;
 
 
 
-
+/**
+ * 
+ * @author pierreconvert
+ *
+ */
 public class SVG_Canvas {
 
 	public final static DecimalFormat FORMAT = new DecimalFormat("0.##");

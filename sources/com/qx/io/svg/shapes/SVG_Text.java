@@ -7,6 +7,12 @@ import com.qx.io.svg.SVG_Vector;
 import com.qx.io.svg.ViewBox;
 import com.qx.io.svg.ViewBoxUpdateType;
 
+
+/**
+ * 
+ * @author pierreconvert
+ *
+ */
 public class SVG_Text extends SVG_Shape {
 
 	

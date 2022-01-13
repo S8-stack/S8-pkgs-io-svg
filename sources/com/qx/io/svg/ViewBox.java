@@ -2,6 +2,12 @@ package com.qx.io.svg;
 
 import java.text.DecimalFormat;
 
+
+/**
+ * 
+ * @author pierreconvert
+ *
+ */
 public class ViewBox {
 
 	/**

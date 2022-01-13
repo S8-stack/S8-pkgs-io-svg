@@ -8,6 +8,12 @@ import java.util.List;
 import com.qx.io.svg.SVG_BoundingBox2D;
 import com.qx.io.svg.ViewBox;
 
+
+/**
+ * 
+ * @author pierreconvert
+ *
+ */
 public class SVG_Group extends SVG_Shape {
 
 	protected List<SVG_Shape> shapes;

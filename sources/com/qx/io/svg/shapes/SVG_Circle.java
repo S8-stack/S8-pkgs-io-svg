@@ -10,7 +10,11 @@ import com.qx.io.svg.ViewBoxUpdateType;
 
 
 
-
+/**
+ * 
+ * @author pierreconvert
+ *
+ */
 public class SVG_Circle extends SVG_Shape {
 	
 	public ViewBoxUpdateType type = ViewBoxUpdateType.Contained;

@@ -5,6 +5,11 @@ import com.qx.io.svg.shapes.SVG_Circle;
 import com.qx.io.svg.shapes.SVG_Line;
 import com.qx.io.svg.shapes.SVG_Rectangle;
 
+/**
+ * 
+ * @author pierreconvert
+ *
+ */
 public class Demo {
 
 	public static void main(String[] args){

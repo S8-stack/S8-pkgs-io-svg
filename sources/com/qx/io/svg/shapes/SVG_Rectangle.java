@@ -7,6 +7,11 @@ import com.qx.io.svg.ViewBox;
 import com.qx.io.svg.ViewBoxUpdateType;
 
 
+/**
+ * 
+ * @author pierreconvert
+ *
+ */
 public class SVG_Rectangle extends SVG_Shape{
 
 	public ViewBoxUpdateType updateType = ViewBoxUpdateType.Contained;

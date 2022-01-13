@@ -11,7 +11,11 @@ import com.qx.io.svg.ViewBoxUpdateType;
 
 
 
-
+/**
+ * 
+ * @author pierreconvert
+ *
+ */
 public class SVG_Arrow extends SVG_Shape {
 
 	public ViewBoxUpdateType updateType = ViewBoxUpdateType.Contained;

@@ -2,6 +2,8 @@ package com.qx.io.svg.shapes;
 
 import com.qx.io.svg.SVG_Vector;
 
+
+
 /**
  * 
  * @author pierreconvert

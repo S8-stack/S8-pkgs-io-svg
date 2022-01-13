@@ -8,6 +8,12 @@ import com.qx.io.svg.SVG_BoundingBox2D;
 import com.qx.io.svg.SVG_Vector;
 import com.qx.io.svg.ViewBox;
 
+
+/**
+ * 
+ * @author pierreconvert
+ *
+ */
 public class SVG_Path extends SVG_Shape {
 
 

@@ -10,7 +10,7 @@ import com.qx.io.svg.ViewBoxUpdateType;
 
 /**
  * 
- * @author pc
+ * @author pierreconvert
  *
  */
 public class SVG_Line extends SVG_Shape{
