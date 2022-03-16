@@ -1,9 +1,9 @@
-package com.qx.io.svg.shapes;
+package com.s8.io.svg.shapes;
 
 import java.io.IOException;
 
-import com.qx.io.svg.SVG_BoundingBox2D;
-import com.qx.io.svg.ViewBox;
+import com.s8.io.svg.SVG_BoundingBox2D;
+import com.s8.io.svg.ViewBox;
 
 
 /**

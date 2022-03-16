@@ -1,6 +1,6 @@
-package com.qx.io.svg.shapes;
+package com.s8.io.svg.shapes;
 
-import com.qx.io.svg.SVG_Vector;
+import com.s8.io.svg.SVG_Vector;
 
 
 

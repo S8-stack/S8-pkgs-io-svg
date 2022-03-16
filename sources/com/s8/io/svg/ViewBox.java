@@ -1,4 +1,4 @@
-package com.qx.io.svg;
+package com.s8.io.svg;
 
 import java.text.DecimalFormat;
 

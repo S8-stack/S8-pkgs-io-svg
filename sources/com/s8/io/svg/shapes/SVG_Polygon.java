@@ -1,13 +1,13 @@
-package com.qx.io.svg.shapes;
+package com.s8.io.svg.shapes;
 
 
 import java.io.IOException;
 
-import com.qx.io.svg.SVG_BoundingBox2D;
-import com.qx.io.svg.SVG_Vector;
-import com.qx.io.svg.SVG_Vector.Vec;
-import com.qx.io.svg.ViewBox;
-import com.qx.io.svg.ViewBoxUpdateType;
+import com.s8.io.svg.SVG_BoundingBox2D;
+import com.s8.io.svg.SVG_Vector;
+import com.s8.io.svg.ViewBox;
+import com.s8.io.svg.ViewBoxUpdateType;
+import com.s8.io.svg.SVG_Vector.Vec;
 
 
 
@@ -125,9 +125,9 @@ public class SVG_Polygon extends SVG_Shape{
 		builder.append(" points=\"");
 		
 		// v
-		Vec v;
+		SVG_Vector v;
 		for(int i=0; i<nVertices; i++){
-			v = (Vec) vertices[i];
+			v = vertices[i];
 			builder.append(viewBox.xTransform(v.getX())+",");
 			builder.append(viewBox.yTransform(v.getY())+" ");
 		}

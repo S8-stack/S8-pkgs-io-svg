@@ -1,9 +1,9 @@
 package com.qx.io.svg.tests;
 
-import com.qx.io.svg.SVG_Canvas;
-import com.qx.io.svg.shapes.SVG_Circle;
-import com.qx.io.svg.shapes.SVG_Line;
-import com.qx.io.svg.shapes.SVG_Rectangle;
+import com.s8.io.svg.SVG_Canvas;
+import com.s8.io.svg.shapes.SVG_Circle;
+import com.s8.io.svg.shapes.SVG_Line;
+import com.s8.io.svg.shapes.SVG_Rectangle;
 
 /**
  * 
