@@ -48,7 +48,7 @@ public class SVG_Canvas {
 	protected boolean hasBeenAdjusted = false;
 
 
-	protected final static int maxNumberOfShapes = (int) 1e6;
+	protected final static int MAX_NUMBER_OF_SHAPES = (int) 1e6;
 
 	protected int shapeCount;
 	
@@ -88,8 +88,8 @@ public class SVG_Canvas {
 	 */
 	public void add(SVG_Shape shape){
 		if(shape!=null) {
-			if(shapeCount>maxNumberOfShapes){
-				throw new RuntimeException("max number of shapes exceed");
+			if(shapeCount > MAX_NUMBER_OF_SHAPES){
+				throw new RuntimeException("max number of shapes exceed: "+MAX_NUMBER_OF_SHAPES);
 			}
 			shapes.add(shape);
 			shapeCount++;	
