@@ -1,4 +1,4 @@
-package com.qx.io.svg.tests;
+package com.qx.io.svg.demos;
 
 import com.s8.io.svg.SVG_Canvas;
 import com.s8.io.svg.shapes.SVG_Circle;
