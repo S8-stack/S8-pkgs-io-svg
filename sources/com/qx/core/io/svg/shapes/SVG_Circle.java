@@ -1,11 +1,11 @@
-package com.s8.core.io.svg.shapes;
+package com.qx.core.io.svg.shapes;
 
 import java.io.IOException;
 
-import com.s8.core.io.svg.SVG_BoundingBox2D;
-import com.s8.core.io.svg.SVG_Vector;
-import com.s8.core.io.svg.ViewBox;
-import com.s8.core.io.svg.ViewBoxUpdateType;
+import com.qx.core.io.svg.SVG_BoundingBox2D;
+import com.qx.core.io.svg.SVG_Vector;
+import com.qx.core.io.svg.ViewBox;
+import com.qx.core.io.svg.ViewBoxUpdateType;
 
 
 

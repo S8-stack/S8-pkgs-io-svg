@@ -1,4 +1,4 @@
-package com.s8.core.io.svg;
+package com.qx.core.io.svg;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -9,7 +9,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.s8.core.io.svg.shapes.SVG_Shape;
+import com.qx.core.io.svg.shapes.SVG_Shape;
 
 
 

@@ -4,11 +4,11 @@
  * @author pierreconvert
  *
  */
-module com.s8.io.svg {
+module com.qx.core.io.svg {
 	
-	exports com.s8.core.io.svg;
-	exports com.s8.core.io.svg.shapes;
-	exports com.s8.core.io.svg.transform;
+	exports com.qx.core.io.svg;
+	exports com.qx.core.io.svg.shapes;
+	exports com.qx.core.io.svg.transform;
 	
 
 }
