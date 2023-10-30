@@ -1,6 +1,6 @@
-package com.s8.io.svg;
+package com.s8.core.io.svg;
 
-import com.s8.io.svg.SVG_Vector.Vec;
+import com.s8.core.io.svg.SVG_Vector.Vec;
 
 
 /**

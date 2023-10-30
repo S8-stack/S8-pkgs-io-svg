@@ -1,6 +1,6 @@
-package com.s8.io.svg.shapes;
+package com.s8.core.io.svg.shapes;
 
-import com.s8.io.svg.SVG_Vector;
+import com.s8.core.io.svg.SVG_Vector;
 
 
 
