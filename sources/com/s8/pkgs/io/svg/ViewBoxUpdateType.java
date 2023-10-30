@@ -1,4 +1,4 @@
-package com.qx.core.io.svg;
+package com.s8.pkgs.io.svg;
 
 
 /**

@@ -1,6 +1,6 @@
-package com.qx.core.io.svg.transform;
+package com.s8.pkgs.io.svg.transform;
 
-import com.qx.core.io.svg.ViewBox;
+import com.s8.pkgs.io.svg.ViewBox;
 
 
 /**
