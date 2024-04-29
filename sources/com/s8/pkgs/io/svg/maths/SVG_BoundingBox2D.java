@@ -1,6 +1,6 @@
-package com.s8.pkgs.io.svg;
+package com.s8.pkgs.io.svg.maths;
 
-import com.s8.pkgs.io.svg.SVG_Vector.Vec;
+import com.s8.pkgs.io.svg.maths.SVG_Vector.Vec;
 
 
 /**

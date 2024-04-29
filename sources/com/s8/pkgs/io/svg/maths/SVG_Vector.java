@@ -1,4 +1,4 @@
-package com.s8.pkgs.io.svg;
+package com.s8.pkgs.io.svg.maths;
 
 /**
  * 

@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.s8.pkgs.io.svg.SVG_BoundingBox2D;
 import com.s8.pkgs.io.svg.ViewBox;
+import com.s8.pkgs.io.svg.maths.SVG_BoundingBox2D;
 
 
 /**

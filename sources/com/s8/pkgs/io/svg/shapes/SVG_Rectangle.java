@@ -2,9 +2,9 @@ package com.s8.pkgs.io.svg.shapes;
 
 import java.io.IOException;
 
-import com.s8.pkgs.io.svg.SVG_BoundingBox2D;
 import com.s8.pkgs.io.svg.ViewBox;
 import com.s8.pkgs.io.svg.ViewBoxUpdateType;
+import com.s8.pkgs.io.svg.maths.SVG_BoundingBox2D;
 
 
 /**

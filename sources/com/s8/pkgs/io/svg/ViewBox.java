@@ -2,6 +2,8 @@ package com.s8.pkgs.io.svg;
 
 import java.text.DecimalFormat;
 
+import com.s8.pkgs.io.svg.maths.SVG_BoundingBox2D;
+
 
 /**
  * 
