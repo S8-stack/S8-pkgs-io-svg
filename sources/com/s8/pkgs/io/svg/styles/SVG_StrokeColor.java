@@ -13,10 +13,10 @@ public enum SVG_StrokeColor implements JS_Enum {
 	
 	
 	/** black */
-	BLACK(0x00, "black", 0x000000, 1),
+	BLACK(0x02, "black", 0x000000, 1),
 	
 	/** white */
-	WHITE(0x01, "white", 0xffffff, 1),
+	WHITE(0x04, "white", 0xffffff, 1),
 	
 	
 	RED(0x12, "red", 0xff0000, 1),
