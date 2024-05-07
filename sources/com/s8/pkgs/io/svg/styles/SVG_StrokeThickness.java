@@ -1,7 +1,7 @@
 package com.s8.pkgs.io.svg.styles;
 
 import com.s8.build.js.JS_Enum;
-import com.s8.build.js.JS_Generator;
+import com.s8.build.js.JS_CodeGenerator;
 
 public enum SVG_StrokeThickness implements JS_Enum {
 
@@ -80,7 +80,7 @@ public enum SVG_StrokeThickness implements JS_Enum {
 	 * 
 	 * @param builder
 	 */
-	public static void JS_generateFunction(JS_Generator gen) {
+	public static void JS_generateFunction(JS_CodeGenerator gen) {
 		gen.appendEnumByCodeFunc(
 				"Normalized thicknesses", 
 				"WebSVG.getStrokeThicknessByCode", 

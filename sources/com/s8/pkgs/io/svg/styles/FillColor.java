@@ -1,7 +1,7 @@
 package com.s8.pkgs.io.svg.styles;
 
 import com.s8.build.js.JS_Enum;
-import com.s8.build.js.JS_Generator;
+import com.s8.build.js.JS_CodeGenerator;
 
 /**
  * 
@@ -109,7 +109,7 @@ public enum FillColor implements JS_Enum {
 	
 	
 	
-	public static void JS_generateFunction(JS_Generator gen) {
+	public static void JS_generateFunction(JS_CodeGenerator gen) {
 		gen.appendEnumByCodeFunc(
 				"Normalized fill colors", 
 				"WebSVG.getFillColorByCode", 
