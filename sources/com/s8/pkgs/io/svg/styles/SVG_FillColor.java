@@ -8,16 +8,18 @@ import com.s8.build.js.JS_CodeGenerator;
  * @author pierreconvert
  *
  */
-public enum FillColor implements JS_Enum {
+public enum SVG_FillColor implements JS_Enum {
 
 	NONE(0x00, "none", 0xff0000, 0),
 	
 	
+
+	/** white */
+	WHITE(0x01, "white", 0xffffff, 1),
+	
 	/** black */
 	BLACK(0x02, "black", 0x000000, 1),
 	
-	/** white */
-	WHITE(0x01, "white", 0xffffff, 1),
 	
 
 	
@@ -62,7 +64,7 @@ public enum FillColor implements JS_Enum {
 	public final double alpha;
 
 	
-	private FillColor(int code, String name, int hexEncoding, double alpha) {
+	private SVG_FillColor(int code, String name, int hexEncoding, double alpha) {
 		this.code = code;
 		this.name = name;
 		this.hexEncoding = hexEncoding;
@@ -113,7 +115,7 @@ public enum FillColor implements JS_Enum {
 		gen.appendEnumByCodeFunc(
 				"Normalized fill colors", 
 				"WebSVG.getFillColorByCode", 
-				FillColor.values());
+				SVG_FillColor.values());
 	}
 
 	

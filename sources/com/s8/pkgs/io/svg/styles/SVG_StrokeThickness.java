@@ -6,13 +6,13 @@ import com.s8.build.js.JS_CodeGenerator;
 public enum SVG_StrokeThickness implements JS_Enum {
 
 
-	ONE_TENTH(0x22, "1/10", 0.1),
+	TENTH(0x22, "1/10", 0.1),
 
-	ONE_EIGHTH(0x23, "1/8", 1.0/8.0),
+	EIGHTH(0x23, "1/8", 1.0/8.0),
 
-	ONE_QUARTER(0x24, "1/4", 0.25),
+	QUARTER(0x24, "1/4", 0.25),
 
-	ONE_THIRD(0x25, "1/3", 1.0 / 3.0),
+	THIRD(0x25, "1/3", 1.0 / 3.0),
 
 
 

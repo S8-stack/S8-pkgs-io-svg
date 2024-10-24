@@ -5,6 +5,9 @@ import com.s8.build.js.JS_CodeGenerator;
 
 public enum SVG_StrokeSolidity implements JS_Enum {
 
+	
+
+	
 	SOLID(0x00, "solid", "1"),
 
 	SMALL_DASH(0x03, "small-dash", "2 2"),
