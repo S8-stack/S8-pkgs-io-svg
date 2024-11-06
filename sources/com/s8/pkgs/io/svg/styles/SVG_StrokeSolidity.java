@@ -1,7 +1,7 @@
 package com.s8.pkgs.io.svg.styles;
 
-import com.s8.build.js.JS_Enum;
 import com.s8.build.js.JS_CodeGenerator;
+import com.s8.build.js.JS_Enum;
 
 public enum SVG_StrokeSolidity implements JS_Enum {
 
@@ -20,13 +20,13 @@ public enum SVG_StrokeSolidity implements JS_Enum {
 
 	public final String name;
 	
-	public final String jsValue;
+	public final String cssValue;
 
 
 	private SVG_StrokeSolidity(int code, String name, String jsValue) {
 		this.code = code;
 		this.name = name;
-		this.jsValue = jsValue;
+		this.cssValue = jsValue;
 	}
 	
 	
@@ -53,7 +53,7 @@ public enum SVG_StrokeSolidity implements JS_Enum {
 
 	@Override
 	public String getValue() {
-		return jsValue;
+		return cssValue;
 	}
 
 

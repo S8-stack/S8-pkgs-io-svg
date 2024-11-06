@@ -1,0 +1,29 @@
+
+
+
+
+.websvg-viewer {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+
+.websvg-layer-clipping {
+	position: absolute;
+	width: 100vw;
+	height: 92vh;
+	background-color: white;
+	z-index: 2;
+	overflow: scroll;
+}
+
+
+.websvg-layer-annotations {
+	position: absolute;
+	z-index: 4;
+}
+
+.websvg-layer-touchscreen {
+	z-index: 6;
+}

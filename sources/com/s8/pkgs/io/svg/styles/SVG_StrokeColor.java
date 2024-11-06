@@ -1,7 +1,7 @@
 package com.s8.pkgs.io.svg.styles;
 
-import com.s8.build.js.JS_Enum;
 import com.s8.build.js.JS_CodeGenerator;
+import com.s8.build.js.JS_Enum;
 
 /**
  * 
@@ -10,6 +10,9 @@ import com.s8.build.js.JS_CodeGenerator;
  */
 public enum SVG_StrokeColor implements JS_Enum {
 
+
+	/** None */
+	NONE(0x00, "black", 0x000000, 1),
 	
 	
 	/** black */

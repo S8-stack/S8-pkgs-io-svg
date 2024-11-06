@@ -1,7 +1,7 @@
 package com.s8.pkgs.io.svg.styles;
 
-import com.s8.build.js.JS_Enum;
 import com.s8.build.js.JS_CodeGenerator;
+import com.s8.build.js.JS_Enum;
 
 public enum SVG_StrokeThickness implements JS_Enum {
 

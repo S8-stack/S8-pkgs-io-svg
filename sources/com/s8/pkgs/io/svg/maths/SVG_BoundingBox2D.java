@@ -1,8 +1,5 @@
 package com.s8.pkgs.io.svg.maths;
 
-import com.s8.pkgs.io.svg.maths.SVG_Vector.Vec;
-
-
 /**
  * 
  * @author pierreconvert
@@ -40,7 +37,7 @@ public class SVG_BoundingBox2D {
 	 * 
 	 * @param v
 	 */
-	public void update(Vec v) {
+	public void update(SVG_BaseVector v) {
 		update(v.x, v.y);
 	}
 	

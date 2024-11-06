@@ -1,4 +1,4 @@
-package com.s8.pkgs.io.svg.shapes;
+package com.s8.pkgs.io.svg.elements.shapes;
 
 import com.s8.pkgs.io.svg.maths.SVG_Vector;
 

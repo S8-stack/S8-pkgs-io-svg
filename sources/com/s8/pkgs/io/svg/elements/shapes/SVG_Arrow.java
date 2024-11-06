@@ -1,13 +1,15 @@
-package com.s8.pkgs.io.svg.shapes;
+package com.s8.pkgs.io.svg.elements.shapes;
 
 
 
 import java.io.IOException;
 
+import com.s8.api.web.S8WebFront;
 import com.s8.pkgs.io.svg.ViewBox;
 import com.s8.pkgs.io.svg.ViewBoxUpdateType;
 import com.s8.pkgs.io.svg.maths.SVG_BoundingBox2D;
 import com.s8.pkgs.io.svg.maths.SVG_Vector;
+import com.s8.pkgs.io.svg.web.WebSVG_Element;
 
 
 
@@ -102,5 +104,13 @@ public class SVG_Arrow extends SVG_Shape {
 	@Override
 	public SVG_Shape rewrite(SVG_Rewriter transform) {
 		throw new RuntimeException("Not implemented yet");
+	}
+
+
+
+	@Override
+	public WebSVG_Element createWeb(S8WebFront front) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

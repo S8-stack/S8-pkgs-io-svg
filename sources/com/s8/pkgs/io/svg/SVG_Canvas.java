@@ -6,11 +6,16 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.ArrayList;
 import java.util.List;
 
+import com.s8.api.annotations.S8Field;
+import com.s8.api.annotations.S8ObjectType;
+import com.s8.api.flow.repository.objects.RepoS8Object;
+import com.s8.api.web.S8WebFront;
+import com.s8.pkgs.io.svg.elements.SVG_Element;
 import com.s8.pkgs.io.svg.maths.SVG_BoundingBox2D;
-import com.s8.pkgs.io.svg.shapes.SVG_Shape;
+import com.s8.pkgs.io.svg.web.WebSVG_Canvas;
+import com.s8.pkgs.io.svg.web.WebSVG_Element;
 
 
 
@@ -19,16 +24,31 @@ import com.s8.pkgs.io.svg.shapes.SVG_Shape;
  * @author pierreconvert
  *
  */
-public class SVG_Canvas {
+@S8ObjectType(name = "com.s8.pkgs.ui.websvg.model.WebSVG_CanvasModel")
+public class SVG_Canvas extends RepoS8Object {
 
-	public final static DecimalFormat FORMAT = new DecimalFormat("0.##");
-
-	static{
-		DecimalFormatSymbols symbols = FORMAT.getDecimalFormatSymbols();
-		symbols.setDecimalSeparator('.');
+	
+	/**
+	 * 
+	 * @param elements
+	 * @return
+	 */
+	public static SVG_Canvas wrap(List<SVG_Element> elements) {
+		SVG_Canvas canvas = new SVG_Canvas();
+		canvas.setElements(elements);
+		return canvas;
 	}
-
-
+	
+	/**
+	 * 
+	 * @param elements
+	 * @return
+	 */
+	public static SVG_Canvas wrap(SVG_Element... elements) {
+		SVG_Canvas canvas = new SVG_Canvas();
+		canvas.elements = elements;
+		return canvas;
+	}
 
 	private final static String HEADER_LINE1 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n";
 	private final static String HEADER_LINE2 = "<?xml-stylesheet href='mystyle.css' type='text/css'?>\n";
@@ -43,8 +63,6 @@ public class SVG_Canvas {
 
 
 
-	protected List<SVG_Shape> shapes;
-
 
 	protected boolean hasBeenAdjusted = false;
 
@@ -52,7 +70,7 @@ public class SVG_Canvas {
 	protected final static int MAX_NUMBER_OF_SHAPES = (int) 1e6;
 
 	protected int shapeCount;
-	
+
 	private final ViewBox viewBox;
 
 
@@ -64,38 +82,151 @@ public class SVG_Canvas {
 	public double leftPadding = 64;
 
 	public double rightPadding = 64;
-	
+
 	public double topPadding = 16;
 
 	public double bottomPadding = 16;
 
 
-	public SVG_Canvas(){
+	public @S8Field(name = "elements") SVG_Element[] elements;
+
+
+	public @S8Field(name = "viewport-width") double viewportWidth = 1920;
+
+	public @S8Field(name = "viewport-height") double viewportHeight = 1080;
+
+
+
+	public @S8Field(name = "margin-top") double marginTop = 10;
+
+	public @S8Field(name = "margin-right") double marginRight = 20;
+
+	public @S8Field(name = "margin-bottom") double marginBottom = 10;
+
+	public @S8Field(name = "margin-left") double marginLeft = 20;
+
+
+	/**
+	 * 
+	 * @param front
+	 * @param typeName
+	 */
+	public SVG_Canvas() {
 		super();
 		viewBox = new ViewBox(this);
-		initialize();
 	}
-	
 
-	private void initialize() {
-		shapes = new ArrayList<SVG_Shape>();
-		shapeCount = 0;
+
+
+	/**
+	 * 
+	 * @param elements
+	 */
+	public void setElements(List<SVG_Element> elements) {
+		int n = elements.size();
+		/*
+		if(n > MAX_NUMBER_OF_SHAPES){
+			throw new RuntimeException("max number of shapes exceed: "+MAX_NUMBER_OF_SHAPES);
+		}
+		*/
+
+		SVG_Element[] array = new SVG_Element[n];
+		for(int i = 0; i<n; i++) { array[i] = elements.get(i); }
+		this.elements = array;
+	}
+
+
+
+
+
+	/**
+	 * 
+	 * @param width
+	 */
+	public void setViewportDimensions(double width, double height){
+		this.viewportWidth = width;
+		this.viewportHeight = height;
+	}
+
+
+
+	/**
+	 * 
+	 * @param margin
+	 */
+	public void setViewportMargins(double marginTop, double marginRight, double marginBottom, double marginLeft){
+		setViewportMarginTop(marginTop);
+		setViewportMarginRight(marginRight);
+		setViewportMarginBottom(marginBottom);
+		setViewportMarginLeft(marginLeft);
+	}
+
+	/**
+	 * 
+	 * @param margin
+	 */
+	public void setViewportMarginTop(double margin){
+		this.marginTop = margin;
 	}
 
 
 	/**
-	 * Null shape ignored
-	 * @param shape
+	 * 
+	 * @param margin
 	 */
-	public void add(SVG_Shape shape){
-		if(shape!=null) {
-			if(shapeCount > MAX_NUMBER_OF_SHAPES){
-				throw new RuntimeException("max number of shapes exceed: "+MAX_NUMBER_OF_SHAPES);
-			}
-			shapes.add(shape);
-			shapeCount++;	
-		}
+	public void setViewportMarginRight(double margin){
+		this.marginRight = margin;
 	}
+
+
+
+	/**
+	 * 
+	 * @param margin
+	 */
+	public void setViewportMarginBottom(double margin){
+		this.marginBottom = margin;
+	}
+
+
+	/**
+	 * 
+	 * @param margin
+	 */
+	public void setViewportMarginLeft(double margin){
+		this.marginLeft = margin;
+	}
+
+
+
+
+	/**
+	 * 
+	 * @param front
+	 * @return
+	 */
+	public WebSVG_Canvas createWeb(S8WebFront front) {
+		WebSVG_Canvas group = new WebSVG_Canvas(front);
+
+		int n = elements.length;
+		WebSVG_Element[] array = new WebSVG_Element[n];
+		for(int i = 0; i<n; i++) { array[i] = elements[i].createWeb(front); }
+		group.setElements(array);
+
+		group.setViewport(viewportWidth, viewportHeight, marginTop, marginRight, marginBottom, marginLeft);
+
+		return group;
+	}
+
+	public final static DecimalFormat FORMAT = new DecimalFormat("0.##");
+
+	static{
+		DecimalFormatSymbols symbols = FORMAT.getDecimalFormatSymbols();
+		symbols.setDecimalSeparator('.');
+	}
+
+
+
 
 
 
@@ -127,8 +258,8 @@ public class SVG_Canvas {
 		// compute the bounding box
 
 		SVG_BoundingBox2D boundingBox2d = viewBox.getBoundingBox();
-		for(SVG_Shape shape : shapes){
-			shape.updateBoundingBox(boundingBox2d);
+		for(SVG_Element element : elements){
+			element.updateBoundingBox(boundingBox2d);
 		}
 
 
@@ -140,8 +271,8 @@ public class SVG_Canvas {
 		builder.append("<svg version=\"1.1\" ");
 		viewBox.print(builder);
 		builder.append(" xmlns=\""+XMLNS+"\">\n");
-		for(SVG_Shape shape : shapes){
-			shape.print(builder, viewBox);
+		for(SVG_Element element : elements){
+			element.print(builder, viewBox);
 		}
 		builder.append("</svg>");
 		return builder.toString();
