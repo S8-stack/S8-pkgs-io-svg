@@ -2,7 +2,6 @@ package com.s8.pkgs.io.svg.web.shapes;
 
 import com.s8.api.web.S8WebFront;
 import com.s8.pkgs.io.svg.styles.SVG_Fill;
-import com.s8.pkgs.io.svg.styles.SVG_FillColor;
 import com.s8.pkgs.io.svg.styles.SVG_Stroke;
 import com.s8.pkgs.io.svg.styles.SVG_StrokeColor;
 import com.s8.pkgs.io.svg.styles.SVG_StrokeSolidity;
@@ -97,10 +96,8 @@ public class WebSVG_Shape extends WebSVG_Element {
 	 * 
 	 * @param color
 	 */
-	public void setFillColor(SVG_FillColor color) {
-		if(color != null) {
-			vertex.outbound().setUInt8Field("fillColor", color.code);	
-		}
+	public void setFillColor(long hexEncoding) {
+		vertex.outbound().setUInt64Field("fillColor", hexEncoding);	
 	}
 	
 }

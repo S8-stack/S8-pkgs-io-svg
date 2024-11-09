@@ -7,6 +7,11 @@ package com.s8.pkgs.io.svg.styles;
  */
 public class SVG_Stroke {
 	
+
+	
+	public static SVG_Stroke createDefault() {
+		return new SVG_Stroke(SVG_StrokeSolidity.SOLID, SVG_StrokeThickness.ONE, SVG_StrokeColor.BLACK);
+	}
 	
 	public static SVG_Stroke create(
 			SVG_StrokeSolidity solidity, 

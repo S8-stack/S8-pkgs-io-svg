@@ -1,122 +1,89 @@
 package com.s8.pkgs.io.svg.styles;
 
-import com.s8.build.js.JS_CodeGenerator;
-import com.s8.build.js.JS_Enum;
-
 /**
  * 
  * @author pierreconvert
  *
  */
-public enum SVG_FillColor implements JS_Enum {
+public class SVG_FillColor {
 
-	NONE(0x00, "none", 0xff0000, 0),
+	public final static long 
 	
 	
+	NONE = 0xa8003d920eL,
+	
+	TRANSPARENT = 0xff000000L,
+
+
 
 	/** white */
-	WHITE(0x01, "white", 0xffffff, 1),
-	
+	WHITE =  0xffffffL,
+
 	/** black */
-	BLACK(0x02, "black", 0x000000, 1),
-	
-	
-
-	
-	
-	RED(0x12, "red", 0xff0000, 1),
-	
-	GREEN(0x13, "green", 0x00ff00, 1),
-	
-	BLUE(0x14, "blue", 0x0000ff, 1),
-	
-	
-	
-	
-	LIGHT_GREY(0x13, "grey", 0xf8f8f8, 1),
-	
-	GREY(0x13, "grey", 0x8f8f8f, 1),
-	
-	DARK_GREY(0x13, "grey", 0x88f8f8, 1),
-	
-	
-	
-	FRESH_GREEN(0x22, "fresh green", 0x00FFC1, 1),
-	
-	LIME(0x23, "lime", 0x36FF39, 1);
+	BLACK =  0x000000L,
 
 
-	
-	/**
-	 * code : WebFront
-	 */
-	public final int code;
-	
-	
-	/**
-	 * 
-	 */
-	public final String name;
-	
-	
-	public final int hexEncoding;
+	RED = 0xff0000L,
 
-	public final double alpha;
+	GREEN = 0x00ff00L,
 
-	
-	private SVG_FillColor(int code, String name, int hexEncoding, double alpha) {
-		this.code = code;
-		this.name = name;
-		this.hexEncoding = hexEncoding;
-		this.alpha = alpha;
+	BLUE = 0x0000ffL,
+
+
+
+
+	LIGHT_GREY = 0xf8f8f8L,
+
+	GREY = 0x8f8f8fL,
+
+	DARK_GREY = 0x88f8f8L,
+
+
+
+	FRESH_GREEN = 0x00FFC1L,
+
+	LIME = 0x36FF39L;
+
+
+
+	public static final long rgba(double red, double green, double blue, double alpha) {
+		return rgba((int) (red * 0xff), (int) (green * 0xff), (int) (blue * 0xff), (int) (alpha * 0xff));
 	}
 	
 	
+	public static final long rgba(int red, int green, int blue, int alpha) {
+		long h = 0L;
 
+		h |= (red & 0xff) << 6;
+		h |= (green & 0xff) << 4;
+		h |= (blue & 0xff) << 2;
+		h |= alpha & 0xff;
+		
+		return h;
+	}
+	
+	
+	public static final long rgb(int red, int green, int blue) {
+		long h = 0L;
 
-	@Override
-	public boolean isDefault() {
-		return code == BLACK.code;
+		h |= (red & 0xff) << 6;
+		h |= (green & 0xff) << 4;
+		h |= (blue & 0xff) << 2;
+		
+		return h;
 	}
 
 
 
-
-
-	@Override
-	public int getKey() {
-		return code;
+	public static String getValue(long hexEncoding) {
+		int r = (int) ((hexEncoding >> 6) & 0xff);
+		int g = (int) ((hexEncoding >> 4) & 0xff);
+		int b = (int) ((hexEncoding >> 2) & 0xff);
+		int a = (int) ((hexEncoding) & 0xff);
+		return "rgba("+ r +", "+ g +", "+ b +", "+String.format("%.2f", a * 255)+")";
 	}
 
 
 
 
-
-	@Override
-	public String getValue() {
-		int r = (hexEncoding >> 4) & 0xff;
-		int g = (hexEncoding >> 2) & 0xff;
-		int b = (hexEncoding) & 0xff;
-		return "rgba("+ r +", "+ g +", "+ b +", "+String.format("%.2f", alpha)+")";
-	}
-
-
-
-
-
-	@Override
-	public String getComment() {
-		return name;
-	}
-	
-	
-	
-	public static void JS_generateFunction(JS_CodeGenerator gen) {
-		gen.appendEnumByCodeFunc(
-				"Normalized fill colors", 
-				"WebSVG.getFillColorByCode", 
-				SVG_FillColor.values());
-	}
-
-	
 }

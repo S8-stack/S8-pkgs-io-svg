@@ -15,6 +15,7 @@ import com.s8.pkgs.io.svg.styles.SVG_Stroke;
 import com.s8.pkgs.io.svg.styles.SVG_StrokeColor;
 import com.s8.pkgs.io.svg.styles.SVG_StrokeSolidity;
 import com.s8.pkgs.io.svg.styles.SVG_StrokeThickness;
+import com.s8.pkgs.io.svg.styles.SVG_Style;
 import com.s8.pkgs.io.svg.web.shapes.WebSVG_Shape;
 
 /**
@@ -70,7 +71,7 @@ public abstract class SVG_Shape extends SVG_Element {
 	
 
 	@S8Field(name = "fill-color")
-	public SVG_FillColor fillColor = SVG_FillColor.NONE;
+	public long fillColor = SVG_FillColor.WHITE;
 
 	
 	/** S8 constructor */
@@ -81,12 +82,24 @@ public abstract class SVG_Shape extends SVG_Element {
 	
 	/**
 	 * 
+	 * @param style
+	 */
+	public void setStyle(SVG_Style style) {
+		setStroke(style.stroke);
+		setFill(style.fill);
+	}
+	
+	
+	/**
+	 * 
 	 * @param stroke
 	 */
 	public void setStroke(SVG_Stroke stroke) {
-		setStrokeSolidity(stroke.solidity);
-		setStrokeThickness(stroke.thickness);
-		setStrokeColor(stroke.color);
+		if(stroke != null) {
+			setStrokeSolidity(stroke.solidity);
+			setStrokeThickness(stroke.thickness);
+			setStrokeColor(stroke.color);	
+		}
 	}
 	
 	
@@ -141,7 +154,7 @@ public abstract class SVG_Shape extends SVG_Element {
 	 * 
 	 * @param stroke
 	 */
-	public void setFillColor(SVG_FillColor color) {
+	public void setFillColor(long color) {
 		this.fillColor = color;
 	}
 	
@@ -162,6 +175,14 @@ public abstract class SVG_Shape extends SVG_Element {
 	}
 	
 	
+	public SVG_Shape(SVG_Style style) {
+		super();
+		setStyle(style);
+	}
+
+
+
+
 	public void setStyle(String style) {
 		this.style = style;
 	}
@@ -222,7 +243,7 @@ public abstract class SVG_Shape extends SVG_Element {
 		}
 		
 		if(fillColor != SVG_FillColor.NONE) {
-			builder.append(" fill=\""+fillColor.getValue()+"\"");		
+			builder.append(" fill=\"#"+Long.toHexString(fillColor)+"\"");		
 		}	
 		
 		if(transform!=null){

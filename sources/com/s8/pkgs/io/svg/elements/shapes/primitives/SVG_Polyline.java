@@ -10,6 +10,7 @@ import com.s8.pkgs.io.svg.elements.shapes.SVG_Shape;
 import com.s8.pkgs.io.svg.maths.SVG_BaseVector;
 import com.s8.pkgs.io.svg.maths.SVG_BoundingBox2D;
 import com.s8.pkgs.io.svg.maths.SVG_Vector;
+import com.s8.pkgs.io.svg.styles.SVG_FillColor;
 import com.s8.pkgs.io.svg.styles.SVG_Stroke;
 import com.s8.pkgs.io.svg.web.shapes.WebSVG_Polyline;
 import com.s8.pkgs.io.svg.web.shapes.WebSVG_Shape;
@@ -32,9 +33,10 @@ public class SVG_Polyline extends SVG_Shape {
 	 * @param isBoundingBoxUpdating
 	 * @return
 	 */
-	public static SVG_Polyline create(S8WebFront branch, SVG_Stroke stroke, double[] coordinates, boolean isBoundingBoxUpdating) {
+	public static SVG_Polyline create(SVG_Stroke stroke, double[] coordinates, boolean isBoundingBoxUpdating) {
 		SVG_Polyline polyline = new SVG_Polyline();
 		polyline.setStroke(stroke);
+		polyline.setFillColor(SVG_FillColor.NONE);
 		polyline.setCoordinates(coordinates);
 		polyline.setBoundingBoxRelevant(isBoundingBoxUpdating);
 		return polyline;
@@ -51,6 +53,7 @@ public class SVG_Polyline extends SVG_Shape {
 	public static SVG_Polyline create(S8WebFront branch, SVG_Stroke stroke, SVG_Vector[] points, boolean isBoundingBoxUpdating) {
 		SVG_Polyline polyline = new SVG_Polyline();
 		polyline.setStroke(stroke);
+		polyline.setFillColor(SVG_FillColor.NONE);
 		polyline.setCoordinates(points);
 		polyline.setBoundingBoxRelevant(isBoundingBoxUpdating);
 		return polyline;
@@ -65,6 +68,7 @@ public class SVG_Polyline extends SVG_Shape {
 	 */
 	public static SVG_Polyline create(S8WebFront branch, double[] coordinates) {
 		SVG_Polyline line = new SVG_Polyline();
+		line.setFillColor(SVG_FillColor.NONE);
 		line.setCoordinates(coordinates);
 		return line;
 	}

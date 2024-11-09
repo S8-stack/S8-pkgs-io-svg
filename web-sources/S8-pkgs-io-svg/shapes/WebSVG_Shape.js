@@ -51,7 +51,7 @@ export class WebSVG_Shape extends WebSVG_Element {
 	 * @param {WebSVG_Viewport} viewport 
 	 */
 	updateStroke(viewport) {
-		let thickness = 0.08 * viewport.sTranform(this.strokeThickness);
+		let thickness = this.strokeThickness * viewport.width / 1920 * 1.0;
 		this.SVG_node.setAttribute("stroke-width", thickness);
 	}
 
@@ -114,16 +114,18 @@ export class WebSVG_Shape extends WebSVG_Element {
 	 * 
 	 * @param {number} color
 	 */
-	S8_set_fillColor(code) {
-		if(code != WebSVG.DISABLED_FEATURE_CODE){
-			this.SVG_node.setAttribute("fill", WebSVG.getFillColorByCode(code));
+	S8_set_fillColor(hexEncoding) {
+		if(hexEncoding != 0xa8003d920e) {
+			const a = (hexEncoding >> 24) & 0xff;
+			const r = (hexEncoding >> 16) & 0xff;
+			const g = (hexEncoding >> 8) & 0xff;
+			const b = (hexEncoding) & 0xff;
+			this.SVG_node.setAttribute("fill", `rgba(${r}, ${g}, ${b}, ${(0xff - a) / 0xff})`);
 		}
-		else{
-			this.SVG_node.setAttribute("fill", "none");
+		else {
+			this.SVG_node.setAttribute("fill", 'none');
 		}
 	}
-
-
 
 
 	requestRedraw() {

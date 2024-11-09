@@ -11,6 +11,10 @@ import com.s8.api.serial.S8Serializable;
  * 
  */
 public class Line_relative extends SVG_PathElement {
+	
+	public static Line_relative create(double dx, double dy) {
+		return new Line_relative(dx, dy);
+	}
 
 	public static Line_relative deserialize(ByteInflow inflow) throws IOException {
 		return new Line_relative(inflow.getFloat32(), inflow.getFloat32());

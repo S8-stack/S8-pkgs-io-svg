@@ -13,6 +13,7 @@ import com.s8.pkgs.io.svg.maths.SVG_BoundingBox2D;
 import com.s8.pkgs.io.svg.maths.SVG_Vector;
 import com.s8.pkgs.io.svg.styles.SVG_Fill;
 import com.s8.pkgs.io.svg.styles.SVG_Stroke;
+import com.s8.pkgs.io.svg.styles.SVG_Style;
 import com.s8.pkgs.io.svg.web.shapes.WebSVG_Polygon;
 import com.s8.pkgs.io.svg.web.shapes.WebSVG_Shape;
 
@@ -25,7 +26,6 @@ import com.s8.pkgs.io.svg.web.shapes.WebSVG_Shape;
  */
 public class SVG_Polygon extends SVG_Shape {
 	
-
 	/**
 	 * 
 	 * @param branch
@@ -37,13 +37,32 @@ public class SVG_Polygon extends SVG_Shape {
 	 * @param r
 	 * @return
 	 */
-	public static SVG_Polygon create(S8WebFront branch, SVG_Stroke stroke, SVG_Fill fill,
-			double[] coordinates, boolean isBoundingBoxUpdating) {
-		SVG_Polygon polyline = new SVG_Polygon();
-		polyline.setStroke(stroke);
-		polyline.setCoordinates(coordinates);
-		polyline.setBoundingBoxRelevant(isBoundingBoxUpdating);
-		return polyline;
+	public static SVG_Polygon create(SVG_Style style, double[] coordinates, boolean isBoundingBoxUpdating) {
+		SVG_Polygon polygon = new SVG_Polygon(style);
+		polygon.setCoordinates(coordinates);
+		polygon.setBoundingBoxRelevant(isBoundingBoxUpdating);
+		return polygon;
+	}
+	
+	
+	/**
+	 * 
+	 * @param branch
+	 * @param color
+	 * @param solidity
+	 * @param thickness
+	 * @param xc
+	 * @param yc
+	 * @param r
+	 * @return
+	 */
+	public static SVG_Polygon create(SVG_Stroke stroke, SVG_Fill fill, double[] coordinates, boolean isBoundingBoxUpdating) {
+		SVG_Polygon polygon = new SVG_Polygon();
+		polygon.setStroke(stroke);
+		polygon.setFill(fill);
+		polygon.setCoordinates(coordinates);
+		polygon.setBoundingBoxRelevant(isBoundingBoxUpdating);
+		return polygon;
 	}
 	
 	
@@ -59,6 +78,30 @@ public class SVG_Polygon extends SVG_Shape {
 		return line;
 	}
 	
+	
+	
+	/**
+	 * 
+	 * @param branch
+	 * @param color
+	 * @param solidity
+	 * @param thickness
+	 * @param xc
+	 * @param yc
+	 * @param r
+	 * @return
+	 */
+	public static SVG_Polygon triangle(SVG_Style style, double x0, double y0, double x1, double y1, double x2, double y2) {
+		SVG_Polygon polygon = new SVG_Polygon();
+		polygon.setStyle(style);
+		polygon.setCoordinates(new double[] { x0, y0, x1, y1, x2, y2});
+		polygon.setBoundingBoxRelevant(true);
+		return polygon;
+	}
+	
+	
+	
+	
 	/**
 	 * following order: {x0, y0, x1, y1, ... , x[n-1], y[n-1]}
 	 */
@@ -68,6 +111,9 @@ public class SVG_Polygon extends SVG_Shape {
 	
 	/** S8 constructor */
 	public SVG_Polygon() { super(); }
+	
+	/** default */
+	public SVG_Polygon(SVG_Style style) { super(style); }
 	
 
 	public SVG_Polygon(String className, double[] coordinates){

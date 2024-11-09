@@ -1,7 +1,6 @@
 package com.qx.core.io.svg.devops;
 
 import com.s8.build.js.JS_CodeGenerator;
-import com.s8.pkgs.io.svg.styles.SVG_FillColor;
 import com.s8.pkgs.io.svg.styles.SVG_StrokeColor;
 import com.s8.pkgs.io.svg.styles.SVG_StrokeSolidity;
 import com.s8.pkgs.io.svg.styles.SVG_StrokeThickness;
@@ -21,7 +20,7 @@ public class GenerateFunc {
 		SVG_StrokeColor.JS_generateFunction(gen);
 		gen.skipLines(2);
 		
-		SVG_FillColor.JS_generateFunction(gen);
+		//SVG_FillColor.JS_generateFunction(gen);
 		
 		System.out.print(gen.getCode());
 	}

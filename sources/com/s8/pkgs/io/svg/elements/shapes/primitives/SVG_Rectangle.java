@@ -11,6 +11,7 @@ import com.s8.pkgs.io.svg.maths.SVG_BoundingBox2D;
 import com.s8.pkgs.io.svg.maths.SVG_Vector;
 import com.s8.pkgs.io.svg.styles.SVG_Fill;
 import com.s8.pkgs.io.svg.styles.SVG_Stroke;
+import com.s8.pkgs.io.svg.styles.SVG_Style;
 import com.s8.pkgs.io.svg.web.shapes.WebSVG_Rectangle;
 import com.s8.pkgs.io.svg.web.shapes.WebSVG_Shape;
 
@@ -23,6 +24,28 @@ import com.s8.pkgs.io.svg.web.shapes.WebSVG_Shape;
 public class SVG_Rectangle extends SVG_Shape{
 	
 
+	/**
+	 * 
+	 * @param branch
+	 * @param color
+	 * @param solidity
+	 * @param thickness
+	 * @param xc
+	 * @param yc
+	 * @param r
+	 * @return
+	 */
+	public static SVG_Rectangle create(SVG_Style style,
+			double x, double y, double width, double height, 
+			boolean isBoundingBoxUpdating) {
+		SVG_Rectangle shape = new SVG_Rectangle(style);
+		shape.setTopLeftCorner(x, y);
+		shape.setWidth(width);
+		shape.setHeight(height);
+		shape.setBoundingBoxRelevant(isBoundingBoxUpdating);
+		return shape;
+	}
+	
 	/**
 	 * 
 	 * @param branch
@@ -88,6 +111,9 @@ public class SVG_Rectangle extends SVG_Shape{
 	
 	/** S8 constructor */
 	public SVG_Rectangle() { super(); }
+	
+	/** S8 constructor */
+	public SVG_Rectangle(SVG_Style style) { super(style); }
 	
 
 

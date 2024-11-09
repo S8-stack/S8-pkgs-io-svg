@@ -42,6 +42,10 @@ public class SVG_Line extends SVG_Shape{
 		return line;
 	}
 	
+	public static SVG_Line create(SVG_Stroke stroke, double x0, double y0, double x1, double y1) {
+		return create(stroke, x0, y0, x1, y1, true);
+	}
+	
 	public static SVG_Line create(SVG_Stroke stroke,
 			SVG_Vector p0, SVG_Vector p1, boolean isBoundingBoxUpdating) {
 		return create(stroke, p0.getX(), p0.getY(), p1.getX(), p1.getY(), isBoundingBoxUpdating);
